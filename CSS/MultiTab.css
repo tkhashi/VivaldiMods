@@ -1,0 +1,78 @@
+/*
+  Multiple Row Tabs - Created by @hababr. Version 2021.10.26.
+  Base on work of and inspired by @nomadic, @fpdragon, @potmeklecbohdan, @alexander.gorbovets, @barbudo2005.
+*/
+
+/* Configuration */
+:root {
+  /* That will be the minimum width of a tab. You can adjust the number as you like. */
+  --mrt-min-width: 106px;
+}
+
+/* Changes to allow multi row tab bar */
+#browser:is(.tabs-top, .tabs-bottom) #tabs-tabbar-container {
+  height: auto !important;
+}
+
+/* Fix overflow issue on secondary bar */
+#browser:is(.tabs-top, .tabs-bottom) #tabs-subcontainer {
+  flex-basis: unset !important;
+}
+
+#browser:is(.tabs-top, .tabs-bottom) .tab-strip {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+#browser:is(.tabs-top, .tabs-bottom) .tab-strip > span,
+#browser:is(.tabs-top, .tabs-bottom) .tab-strip > .tab-position {
+  display: inline-block;
+  position: relative;
+}
+
+#browser:is(.tabs-top, .tabs-bottom) .tab-position.tab-yield-space {
+  --PositionX: 0px !important;
+  height: 34px !important;
+}
+
+#browser:is(.tabs-top, .tabs-bottom) .tab-strip > span > .tab-position {
+  --PositionX: 0px !important;
+  height: 34px !important;
+}
+
+#browser:is(.tabs-top, .tabs-bottom) .tab-position.tab-yield-space:not([style*="--Width:31px"]),
+#browser:is(.tabs-top, .tabs-bottom) .tab-strip > span > .tab-position:not([style*="--Width:31px"]) {
+  min-width: min(var(--mrt-min-width), var(--Width)*99999) !important;
+}
+
+#browser:is(.tabs-top, .tabs-bottom) .tab-strip > span > .tab-position,
+.toolbar-tabbar > .newtab {
+  position: static;
+}
+
+/* Keep title visible on tabs */
+#browser:is(.tabs-top, .tabs-bottom) .tab.tab-small .tab-header .title {
+  display: flex !important;
+}
+
+/* Keep tab stack counter visible  */
+#browser:is(.tabs-top, .tabs-bottom) .tab-position .tab.tab-small .stack-counter {
+  display: block !important;
+}
+
+/* Keep tab header style */
+#browser:is(.tabs-top, .tabs-bottom) .tab.tab-small.tab-mini .tab-header,
+#browser:is(.tabs-top, .tabs-bottom) .tab.pinned.tab-mini .tab-header {
+  padding-left: 6px !important;
+  border: none !important;
+  justify-content: normal !important;
+}
+
+/* Fix width for tab stack border */
+#browser:is(.tabs-top, .tabs-bottom) .tab-strip > span > .tab-position:not([style*="--Width:0px"]) .tab {
+    --Width: max(100%, var(--mrt-min-width));
+}
+
+#browser:not(.alt-tabs, .tabs-left, .tabs-right) .tab-position .tab:hover.tab-small.active .favicon {
+  flex-shrink: 0 !important;
+}
