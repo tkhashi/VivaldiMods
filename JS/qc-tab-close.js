@@ -3,12 +3,18 @@
 
     var lang;
     const l10n = {
-        en_gb: {
-            tab: 'Tab'
+        en_US: {
+            tab: 'Tabs'
+        },
+        en_UK: {
+            tab: 'Tabs'
         },
         ja: {
             tab: 'タブ'
-        }
+        },
+        ja_KS: {
+            tab: 'タブ'
+        },
     };
     vivaldi.utilities.getLanguage().then(l => {
         lang = l10n[l];
@@ -36,6 +42,7 @@
 
             // Set close button in quick-commnad class
             if (child.querySelector('.close-button')) continue;
+            console.log(`${child.textContent}`)
             var closeButton = document.createElement('span');
             closeButton.className = 'close-button';
             closeButton.textContent = '×';
