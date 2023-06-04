@@ -1,7 +1,5 @@
-(function SetCloseTabButtonQC(){
+(function SetCloseTabButtonQC() {
     "use strict";
-    console.log('start func')
-
     var lang;
     const l10n = {
         'en-US': {
@@ -24,43 +22,44 @@
     // Create close button
     function addCloseButtonsToQuickCommands() {
         // Parent of quick-command-sectionheader and quick-command class
-        const gridInnerScrollContainer = document.querySelector('.ReactVirtualized__Grid__innerScrollContainer');
-        const childElements = gridInnerScrollContainer.children;
+        const qcContainer = document.querySelector('.quick-commands');
 
-        for (let i = 0; i < childElements.length; i++) {
-            const child = childElements[i];
-
+        // Extract qc-commands from React auto generate container tag
+        const qcCommands = qcContainer.firstChild.firstChild;
+        for (const command of qcCommands.childNodes) {
             // Set button when'quick-command-sectionheader' include 'Tab'
-            if (child.classList.contains('quick-command-sectionheader')){
-                if (child.textContent.includes(lang.tab)) {
+            if (command.classList.contains('quick-command-sectionheader')) {
+                if (command.textContent.includes(lang.tab)) {
                     continue;
                 }
-                else{
+                else {
                     // Return when next section-header
                     return;
                 }
             }
 
             // Set close button in quick-commnad class
-            if (child.querySelector('.close-button')) continue;
+            if (command.querySelector('.close-button')) continue;
             var closeButton = document.createElement('span');
             closeButton.className = 'close-button';
             closeButton.textContent = '×';
             closeButton.style.padding = '4px 8px';
 
             // Invert color at mouse hover
-            closeButton.addEventListener('mouseenter', function() {
-            this.style.backgroundColor = '#000'; 
-            this.style.color = '#fff';
+            closeButton.addEventListener('mouseenter', function () {
+                this.style.backgroundColor = '#000';
+                this.style.color = '#fff';
+                this.style.cursor = 'pointer';
             });
             // Revevrt color at mouse leave
-            closeButton.addEventListener('mouseleave', function() {
-            this.style.backgroundColor = ''; 
-            this.style.color = ''; 
+            closeButton.addEventListener('mouseleave', function () {
+                this.style.backgroundColor = '';
+                this.style.color = '';
+                this.style.cursor = 'default';
             });
 
-            closeButton.addEventListener('click', handleButtonClick);
-            child.appendChild(closeButton);
+            closeButton.addEventListener('click', handleButtonClick, true);
+            command.appendChild(closeButton);
         }
     }
 
@@ -72,25 +71,24 @@
 
     // Remove tab from tab title 
     function removeTabFromTabTitle(tabTitle) {
-    chrome.tabs.query({}, function(tabs) {
-        for (var i = 0; i < tabs.length; i++) {
-                if(tabs[i].title !== tabTitle) continue;
-                chrome.tabs.remove(tabs[i].id, function() {
-            });
-            return;
-        }
-        console.log('Not found tab');
-    });
+        chrome.tabs.query({}, function (tabs) {
+            for (var i = 0; i < tabs.length; i++) {
+                if (tabs[i].title !== tabTitle) continue;
+                chrome.tabs.remove(tabs[i].id, function () { });
+                return;
+            }
+            console.log('Not found tab');
+        });
     }
 
     // Observe entire html to appeare qc-modal
-    const observerOptions = {
-        childList: true,
-        subtree: true
-    };
     function startObservingModalBg() {
         var targetNode = document.documentElement;
         var observer = new MutationObserver(handleModalBgMutation);
+        const observerOptions = {
+            childList: true,
+            subtree: true
+        };
         observer.observe(targetNode, observerOptions);
     }
 
@@ -103,9 +101,12 @@
                 if (addedNodes[i].id !== 'modal-bg') continue;
                 addCloseButtonsToQuickCommands();
 
-                // TODO: Narrow down a specific range. Because it's bug of setting view's column adding close button.(maybe other place too..)
                 const observer = new MutationObserver(() => addCloseButtonsToQuickCommands());
-                const gridListElement = document.querySelector('.ReactVirtualized__Grid.ReactVirtualized__List');
+                const gridListElement = document.getElementById('modal-bg');
+                const observerOptions = {
+                    childList: true,
+                    subtree: true
+                };
                 observer.observe(gridListElement, observerOptions);
             }
         }
