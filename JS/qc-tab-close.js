@@ -1,67 +1,103 @@
-{
-    // バツ印のボタンを設置する関数
+(function SetCloseTabButtonQC(){
+    "use strict";
+
+    var lang;
+    const l10n = {
+        en_gb: {
+            tab: 'Tab'
+        },
+        ja: {
+            tab: 'タブ'
+        }
+    };
+    vivaldi.utilities.getLanguage().then(l => {
+        lang = l10n[l];
+    });
+
+    // Create close button
     function addCloseButtonsToQuickCommands() {
-    var quickCommands = document.getElementsByClassName('quick-command');
-    for (var i = 0; i < quickCommands.length; i++) {
-        var closeButton = document.createElement('span');
-        closeButton.className = 'close-button';
-        closeButton.textContent = '×';
-        closeButton.addEventListener('click', handleButtonClick);
-        quickCommands[i].appendChild(closeButton);
-    }
+        // Parent of quick-command-sectionheader and quick-command class
+        const gridInnerScrollContainer = document.querySelector('.ReactVirtualized__Grid__innerScrollContainer');
+        const childElements = gridInnerScrollContainer.children;
+
+        for (let i = 0; i < childElements.length; i++) {
+            const child = childElements[i];
+
+            // Set button when'quick-command-sectionheader' include 'Tab'
+            if (child.classList.contains('quick-command-sectionheader')){
+                if (child.textContent.includes(lang.tab)) {
+                    continue;
+                }
+                else{
+                    // Return when next section-header
+                    return;
+                }
+            }
+
+            // Set close button in quick-commnad class
+            if (child.querySelector('.close-button')) continue;
+            var closeButton = document.createElement('span');
+            closeButton.className = 'close-button';
+            closeButton.textContent = '×';
+            closeButton.style.padding = '4px 8px';
+
+            // Invert color at mouse hover
+            closeButton.addEventListener('mouseenter', function() {
+            this.style.backgroundColor = '#000'; 
+            this.style.color = '#fff';
+            });
+            // Revevrt color at mouse leave
+            closeButton.addEventListener('mouseleave', function() {
+            this.style.backgroundColor = ''; 
+            this.style.color = ''; 
+            });
+
+            closeButton.addEventListener('click', handleButtonClick);
+            child.appendChild(closeButton);
+        }
     }
 
-    // クロージャを使用してボタンクリックのハンドラー関数を定義
     function handleButtonClick() {
-    var titleElement = this.parentNode.getElementsByClassName('quick-command-title')[0];
-    var tabTitle = titleElement.textContent.trim();
-    getTabIdFromTabTitle(tabTitle);
+        var titleElement = this.parentNode.getElementsByClassName('quick-command-title')[0];
+        var tabTitle = titleElement.textContent.trim();
+        removeTabFromTabTitle(tabTitle);
     }
 
-    // タブタイトルからタブIDを取得し、タブを削除する関数
-    function getTabIdFromTabTitle(tabTitle) {
+    // Remove tab from tab title 
+    function removeTabFromTabTitle(tabTitle) {
     chrome.tabs.query({}, function(tabs) {
         for (var i = 0; i < tabs.length; i++) {
-        if (tabs[i].title === tabTitle) {
-            var tabId = tabs[i].id;
-            console.log('タブID:', tabId);
-            chrome.tabs.remove(tabId, function() {
-            console.log('タブが削除されました');
+                if(tabs[i].title !== tabTitle) continue;
+                chrome.tabs.remove(tabs[i].id, function() {
             });
             return;
         }
-        }
-        console.log('タブが見つかりませんでした');
+        console.log('Not found tab');
     });
     }
 
-    // Mutation Observerを作成して監視を開始する関数
+    // Observe source
     function startObservingModalBg() {
-    var targetNode = document.documentElement; // HTML全体を監視対象にする場合
-
-    var observer = new MutationObserver(handleModalBgMutation);
-    var observerOptions = {
-        childList: true,
-        subtree: true
-    };
-
-    observer.observe(targetNode, observerOptions);
+        var targetNode = document.documentElement;
+        var observer = new MutationObserver(handleModalBgMutation);
+        observer.observe(targetNode, {childList: true, subtree: true});
     }
 
-    // 監視対象の要素が出現したときに発火する関数
+    // observe qc-modal
     function handleModalBgMutation(mutationsList, observer) {
-    for (var mutation of mutationsList) {
-        if (mutation.type === 'childList') {
-        var addedNodes = mutation.addedNodes;
-        for (var i = 0; i < addedNodes.length; i++) {
-            if (addedNodes[i].id === 'modal-bg') {
+        for (var mutation of mutationsList) {
+            if (mutation.type !== 'childList') continue;
+            var addedNodes = mutation.addedNodes;
+            for (var i = 0; i < addedNodes.length; i++) {
+                if (addedNodes[i].id !== 'modal-bg') continue;
                 addCloseButtonsToQuickCommands();
+
+                const observer = new MutationObserver(() => addCloseButtonsToQuickCommands());
+                const gridListElement = document.querySelector('.ReactVirtualized__Grid.ReactVirtualized__List');
+                observer.observe(gridListElement, {childList: true, subtree: true});
             }
         }
-        }
-    }
     }
 
-    // 実行
     startObservingModalBg();
-}
+})();
