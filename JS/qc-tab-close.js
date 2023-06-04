@@ -18,7 +18,6 @@
         },
     };
     vivaldi.utilities.getLanguage().then(l => {
-        console.log(`言語：${l}`)
         lang = l10n[`${l}`];
     });
 
@@ -104,9 +103,9 @@
                 if (addedNodes[i].id !== 'modal-bg') continue;
                 addCloseButtonsToQuickCommands();
 
+                // TODO: Narrow down a specific range. Because it's bug of setting view's column adding close button.(maybe other place too..)
                 const observer = new MutationObserver(() => addCloseButtonsToQuickCommands());
                 const gridListElement = document.querySelector('.ReactVirtualized__Grid.ReactVirtualized__List');
-                // const gridListElement = document.querySelector('modal-bg');
                 observer.observe(gridListElement, observerOptions);
             }
         }
