@@ -1,23 +1,25 @@
 (function SetCloseTabButtonQC(){
     "use strict";
+    console.log('start func')
 
     var lang;
     const l10n = {
-        en_US: {
+        'en-US': {
             tab: 'Tabs'
         },
-        en_UK: {
+        'en-UK': {
             tab: 'Tabs'
         },
-        ja: {
+        'ja': {
             tab: 'タブ'
         },
-        ja_KS: {
+        'ja-KS': {
             tab: 'タブ'
         },
     };
     vivaldi.utilities.getLanguage().then(l => {
-        lang = l10n[l];
+        console.log(`言語：${l}`)
+        lang = l10n[`${l}`];
     });
 
     // Create close button
@@ -42,7 +44,6 @@
 
             // Set close button in quick-commnad class
             if (child.querySelector('.close-button')) continue;
-            console.log(`${child.textContent}`)
             var closeButton = document.createElement('span');
             closeButton.className = 'close-button';
             closeButton.textContent = '×';
@@ -83,14 +84,18 @@
     });
     }
 
-    // Observe source
+    // Observe entire html to appeare qc-modal
+    const observerOptions = {
+        childList: true,
+        subtree: true
+    };
     function startObservingModalBg() {
         var targetNode = document.documentElement;
         var observer = new MutationObserver(handleModalBgMutation);
-        observer.observe(targetNode, {childList: true, subtree: true});
+        observer.observe(targetNode, observerOptions);
     }
 
-    // observe qc-modal
+    // observe qc-modal for commands
     function handleModalBgMutation(mutationsList, observer) {
         for (var mutation of mutationsList) {
             if (mutation.type !== 'childList') continue;
@@ -101,7 +106,8 @@
 
                 const observer = new MutationObserver(() => addCloseButtonsToQuickCommands());
                 const gridListElement = document.querySelector('.ReactVirtualized__Grid.ReactVirtualized__List');
-                observer.observe(gridListElement, {childList: true, subtree: true});
+                // const gridListElement = document.querySelector('modal-bg');
+                observer.observe(gridListElement, observerOptions);
             }
         }
     }
