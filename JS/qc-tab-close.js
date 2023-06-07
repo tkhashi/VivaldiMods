@@ -19,7 +19,28 @@
         lang = l10n[`${l}`];
     });
 
-    // Create close button
+    // Set shortcut close tab
+    // it can't register specific key what had default function for some reason( ex) Ctrl|Shift|Alt+Backspace).
+    // It can't register Shift+Delete for some reason(Ctrl|Alt+Delete has default function).
+    const DELETE_TAB_KEY_COMBO = "Alt+Delete";
+    function handleKeyboardShortcut(_, combo) {
+        console.log(combo);
+        if(DELETE_TAB_KEY_COMBO !== combo) return;
+
+        // Delete tab
+        const selected = document.querySelector('.quick-command[data-selected]');
+        const selectedTitle = selected.querySelector('.quick-command-title');
+        var tabTitle = selectedTitle.textContent.trim();
+        const isRemoved = removeTabFromTabTitle(tabTitle);
+
+        // Delete tab in qc
+        if(isRemoved) return;
+        selected.classList.add('strikethrough-text')
+    }
+
+    vivaldi.tabsPrivate.onKeyboardShortcut.addListener(handleKeyboardShortcut);
+
+    // Set close button
     function addCloseButtonsToQuickCommands() {
         // Parent of quick-command-sectionheader and quick-command class
         const qcContainer = document.querySelector('.quick-commands');
@@ -69,16 +90,61 @@
         removeTabFromTabTitle(tabTitle);
     }
 
-    // Remove tab from tab title 
     function removeTabFromTabTitle(tabTitle) {
         chrome.tabs.query({}, function (tabs) {
             for (var i = 0; i < tabs.length; i++) {
                 if (tabs[i].title !== tabTitle) continue;
                 chrome.tabs.remove(tabs[i].id, function () { });
-                return;
+                return true;
             }
             console.log('Not found tab');
+            return false;
         });
+    }
+
+    // Set QuickCommand CSS for Observable
+    function setQcModalCss(){
+        const css = `
+            * QC Height and Width */
+            .qc-modal {top: 20vh !important;}
+            .quick-command-container, .quick-command-container .quick-commands > div {width:60vw !important; }
+            .quick-command-container .quick-commands > div > div {max-width: 100% !important;}
+            .quick-commands {max-height: 100% !important;}
+            .quick-commands > div {height: 50vh !important;}
+
+            /* QC Transparency */
+            .quick-commands, input.quick-command-search-hint {
+                background-color: transparent !important;
+            }
+
+            .quick-commands .quick-command[data-selected] {
+                background-color: var(--colorHighlightBgAlpha) !important;
+            }
+            .qc-modal > div {
+                color: var(--colorFgIntense) !important;
+                background-color: var(--colorBgAlphaHeavy) !important;
+                backdrop-filter: blur(5px);
+                border: 2px solid var(--colorHighlightBgAlpha);
+            }
+
+            .qc-modal ::-webkit-scrollbar-track, .qc-modal ::-webkit-scrollbar-thumb {
+                background-color: var(--colorBgAlphaHeavier) !important;
+            }
+
+            .qc-modal ::-webkit-scrollbar-button {
+                display: none;
+            }
+
+            /* Closed tabs */
+            .strikethrough-text {
+                text-decoration: line-through;
+                opacity: 0.3;
+            }
+        `;
+
+        const style = document.createElement('style');
+        style.appendChild(document.createTextNode(css));
+        document.head.appendChild(style);
     }
 
     // Observe entire html to appeare qc-modal
@@ -92,7 +158,7 @@
         observer.observe(targetNode, observerOptions);
     }
 
-    // observe qc-modal for commands
+    // observe qc-modal for refleshed commands
     function handleModalBgMutation(mutationsList, observer) {
         for (var mutation of mutationsList) {
             if (mutation.type !== 'childList') continue;
@@ -100,8 +166,12 @@
             for (var i = 0; i < addedNodes.length; i++) {
                 if (addedNodes[i].id !== 'modal-bg') continue;
                 addCloseButtonsToQuickCommands();
+                setQcModalCss();
 
-                const observer = new MutationObserver(() => addCloseButtonsToQuickCommands());
+                const observer = new MutationObserver(() => {
+                    setQcModalCss();
+                    addCloseButtonsToQuickCommands()
+                });
                 const gridListElement = document.getElementById('modal-bg');
                 const observerOptions = {
                     childList: true,
