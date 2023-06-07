@@ -102,38 +102,15 @@
         });
     }
 
-    // Set QuickCommand CSS for Observable
+    // CSS to apply every time the inside of the modal-bg is updated
     function setQcModalCss(){
         const css = `
-            * QC Height and Width */
+            /* QC Height and Width */
             .qc-modal {top: 20vh !important;}
             .quick-command-container, .quick-command-container .quick-commands > div {width:60vw !important; }
             .quick-command-container .quick-commands > div > div {max-width: 100% !important;}
             .quick-commands {max-height: 100% !important;}
             .quick-commands > div {height: 50vh !important;}
-
-            /* QC Transparency */
-            .quick-commands, input.quick-command-search-hint {
-                background-color: transparent !important;
-            }
-
-            .quick-commands .quick-command[data-selected] {
-                background-color: var(--colorHighlightBgAlpha) !important;
-            }
-            .qc-modal > div {
-                color: var(--colorFgIntense) !important;
-                background-color: var(--colorBgAlphaHeavy) !important;
-                backdrop-filter: blur(5px);
-                border: 2px solid var(--colorHighlightBgAlpha);
-            }
-
-            .qc-modal ::-webkit-scrollbar-track, .qc-modal ::-webkit-scrollbar-thumb {
-                background-color: var(--colorBgAlphaHeavier) !important;
-            }
-
-            .qc-modal ::-webkit-scrollbar-button {
-                display: none;
-            }
 
             /* Closed tabs */
             .strikethrough-text {
