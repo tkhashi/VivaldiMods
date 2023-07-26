@@ -1,0 +1,45 @@
+#panels-container#main > div.toolbar.toolbar-addressbar::after {display: none !important;}
+#switch > button.webviewbtn > img,
+.tab-position .tab.active .tab-header .favicon {background-color: transparent !important;}
+.win10 .vivaldi,
+#browser.win.win10.tabs-top #header #titlebar .window-buttongroup button {height: 30px !important;}
+.linux.normal .topmenu + #tabs-container.top,
+.win10.normal #tabs-container.top,
+.win.normal .topmenu + #tabs-container.top {padding-top: 0 !important;}
+.tabs-bottom .tab-position .tab,
+.tabs-top .tab-position .tab {margin-right: 0 !important;}
+.tabs-top .tab-position .tab {color: var(--colorBorderIntense)!important;}
+#panels-container {border: none !important;}
+.color-behind-tabs-on .tab-position .tab.active {background-color: rgba(18, 19, 20, 0.25) !important;color: white !important;}
+.tabs-top.color-behind-tabs-on #tabs-container {background-image: none !important;}
+.toolbar.toolbar-addressbar svg,
+.button-addressfield.bookmark svg .bookmark-outline,
+#tabs-container > div.resize > div.tab-strip > div > div > div.tab-header > span.close > svg,
+#switch svg,
+#footer svg,
+#footer svg g {fill: var(--colorAccentBg) !important;}
+.addressfield form input.url,
+.addressfield .pageload,
+#footer {color: var(--colorAccentBg) !important;}
+.color-behind-tabs-on .addressfield.focused,
+.color-behind-tabs-on .searchfield.focused {box-shadow: 0 0 0 1px var(--colorAccentBg) inset !important;border-color: var(--colorAccentBg) !important;}
+#browser input[type=range]::-webkit-slider-thumb {border: 2px solid var(--colorAccentBg) !important;background-color: 2px solid var(--colorAccentBg) !important;}
+
+/* COLOR TEXT */
+#header {color: var(--colorAccentBg) !important;}
+#browser.color-behind-tabs-on.tabs-top,
+#browser.color-behind-tabs-off:not(.tabs-top) {
+background-color: var(--colorBg);
+color: var(--colorAccentBg);
+fill: var(--colorAccentBg);
+}
+/* COLOR BUTTONS */
+#browser.win.win10 .window-buttongroup {stroke: var(--colorAccentBg) !important;}
+button.window-minimize svg,button.window-maximize svg,button.window-close svg {stroke: var(--colorAccentBg) !important;}
+.extensions-wrapper {background-color: var(--colorBorderIntense);}
+#browser.win, #browser.win + div, #browser.win + div + div,
+#browser.win button,
+#browser.win input,
+#browser.win select,
+#browser.win textarea,
+.tab-position .tab {font-family:"terminus (ttf)","Segoe UI";font-size:9pt!important;}

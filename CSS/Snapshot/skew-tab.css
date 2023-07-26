@@ -1,0 +1,2 @@
+.tab-position .tab {transform: skewX(-25deg);}
+.tab-position .tab .tab-header {transform: skewX(25deg);}

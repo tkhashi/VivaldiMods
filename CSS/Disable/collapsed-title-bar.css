@@ -1,0 +1,266 @@
+@charset "utf-8";
+
+/**
+ * UIフォントの上書き
+ */
+
+html {
+  font-feature-settings: 'palt' 1 !important;
+  font-family: 'Noto Sans JP', sans-serif !important;
+}
+
+/**
+ * macOS のウインドウボタン（信号 UI）の表示調整
+ */
+
+#browser.mac:not(.fullscreen) #titlebar.tabless .window-buttongroup {
+  margin-top: 11px;
+}
+
+#browser.mac.fullscreen.address-top #titlebar.tabless .window-buttongroup {
+  margin-top: 12px;
+}
+
+#browser.mac.fullscreen.address-bottom #titlebar.tabless .window-buttongroup {
+  margin-top: 8px;
+}
+
+:not(.fullscreen):not(.address-bottom).tabs-off .mainbar .toolbar,
+:not(.fullscreen):not(.address-bottom).tabs-bottom .mainbar .toolbar,
+:not(.fullscreen):not(.address-bottom).tabs-left .mainbar .toolbar,
+:not(.fullscreen):not(.address-bottom).tabs-right .mainbar .toolbar {
+  padding-left: 72px;
+}
+
+.address-bottom #main > .toolbar {
+  padding-left: 0;
+}
+
+/**
+ * タイトルバーを隠した時のタブバーの高さを修正
+ */
+#browser.mac.address-top .toolbar:has(.window-buttongroup.on-mainbar) {
+  height: auto;
+  min-height: 0;
+}
+
+/**
+ * パネルの上パディングを削除
+ */
+
+#switch {
+  padding-top: 0px;
+}
+
+/**
+ * タブ周りの UI 調整
+ */
+
+/* .tab-position {
+  width: 100%;
+}
+
+.tabs-left .tab-position .tab,
+.tabs-right .tab-position .tab {
+  margin: 0;
+}
+
+.tabs-left .tab-position .tab > .svg-tab-stack,
+.tabs-right .tab-position .tab > .svg-tab-stack,
+.tabs-left .tab-position .tab > .tab-header,
+.tabs-right .tab-position .tab > .tab-header {
+  margin: 0;
+}
+
+.tabs-left .tab-position .tab:not(.tab-in-accordion):not(.tab-accordion),
+.tabs-right .tab-position .tab:not(.tab-in-accordion):not(.tab-accordion),
+.tabs-left .tab-position .tab:not(.tab-in-accordion):not(.tab-accordion),
+.tabs-right .tab-position .tab:not(.tab-in-accordion):not(.tab-accordion) {
+  border-radius: var(--radiusHalf) 0 0 var(--radiusHalf);
+}
+*/
+
+/**
+ * サイドのタブバーのスクロールバーを非表示に
+ */
+
+/*
+:is(#tabs-container, #tabs-subcontainer):is(.left, .right).overflow .tab-strip {
+  overflow-y: overlay;
+}
+
+:is(#tabs-container, #tabs-subcontainer):is(.left, .right).overflow
+  .tab-strip::-webkit-scrollbar {
+  width: 8px;
+  display: none;
+}
+
+:is(#tabs-container, #tabs-subcontainer):is(.left, .right).overflow
+  .tab-strip::-webkit-scrollbar-thumb {
+  border-width: 0 4px 0 0;
+  border-radius: 0;
+}
+*/
+
+/**
+ * 左サイドタブのカレントカラー境界線
+ */
+
+/* tabs-tabbar-container.left {
+  position: relative;
+}
+
+#tabs-tabbar-container.left::after {
+  content: '';
+  display: block;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 3px;
+  height: 100%;
+  background-color: var(--colorAccentBg);
+  z-index: 1;
+  pointer-events: none;
+} */
+
+/**
+ * 左サイドタブバー上に信号ボタンを重ねる際の上パディング
+ */
+
+:not(.address-top).tabs-left #titlebar {
+  display: block;
+}
+
+:not(.fullscreen):not(.address-top).tabs-left
+  #tabs-tabbar-container
+  #tabs-container {
+  padding-top: 24px;
+}
+
+/* #browser.mac:not(.address-top).tabs-left .window-buttongroup button.window-close {
+  display: none;
+} */
+
+:not(.address-top):is(.tabs-off, .tabs-left, .tabs-right, .tabs-bottom)
+  #titlebar {
+  display: block;
+}
+
+:not(.fullscreen):is(.tabs-off, .tabs-left, .tabs-right, .tabs-bottom)
+  #titlebar
+  #pagetitle {
+  display: none;
+}
+
+#browser.mac:not(.address-top):not(.fullscreen):is(
+    .tabs-left,
+    .tabs-right,
+    .tabs-bottom,
+    .tabs-off
+  )
+  .window-buttongroup
+  button.window-minimize,
+#browser.mac:not(.address-top):not(.fullscreen):is(
+    .tabs-left,
+    .tabs-right,
+    .tabs-bottom,
+    .tabs-off
+  )
+  .window-buttongroup
+  button.window-close {
+  margin-right: 2px;
+}
+
+#browser.mac:not(.address-top):not(.fullscreen):is(
+    .tabs-left,
+    .tabs-right,
+    .tabs-bottom,
+    .tabs-off
+  )
+  #titlebar.tabless
+  .window-buttongroup {
+  margin-top: 2px;
+  margin-left: 2px;
+  padding: 2px;
+  transform-origin: 0% 0%;
+  backdrop-filter: blur(8px);
+  border-radius: 16px;
+}
+
+#browser.mac:not(.address-top):not(.fullscreen):is(
+    .tabs-off,
+    .tabs-right,
+    .tabs-bottom
+  )
+  #titlebar.tabless
+  .window-buttongroup {
+  opacity: 0.4;
+}
+
+#browser.mac:not(.address-top):not(.fullscreen):not(.minimal-ui):is(
+    .tabs-off,
+    .tabs-right,
+    .tabs-bottom
+  )
+  #titlebar.tabless
+  .window-buttongroup:hover {
+  opacity: 1;
+}
+
+#browser.mac.minimal-ui:is(.tabs-off, .tabs-right, .tabs-bottom)
+  #titlebar.tabless
+  .window-buttongroup {
+  display: none;
+}
+
+#browser.mac .window-buttongroup button {
+  justify-content: center;
+  align-items: center;
+}
+
+.tabs-left .accordion-toggle-arrow,
+.tabs-right .accordion-toggle-arrow {
+  max-width: calc(100% - 4px);
+}
+
+.address-top .mainbar > .toolbar-mainbar .toolbar-extensions:before,
+.address-top .mainbar > .toolbar-mainbar:before {
+  left: 0;
+}
+
+/*
+ * フルスクリーン時に Workspace UI を隠す
+ */
+
+.fullscreen.inner .button-toolbar.workspace-popup {
+  display: none;
+}
+
+/**
+ * カレント以外のワークスペースでサウンド再生中に、レイアウトが崩れる問題を修正
+ */
+
+.button-toolbar.workspace-popup.tabbar-workspace-button button {
+  height: auto;
+}
+
+#app .button-toolbar.workspace-popup.tabbar-workspace-button .button-toolbar-menu-indicator {
+  flex: 0 0 auto;
+}
+
+:is(
+  #browser .workspace-popup > button,
+  #browser .tabbar-workspace-button > button,
+  #browser .workspace-popup > button:active,
+  #browser .tabbar-workspace-button > button:active,
+  #browser .workspace-popup > button.button-pressed,
+  #browser .tabbar-workspace-button > button.button-pressed
+):has(
+  .button-icon:not(.override):last-child
+) {
+  flex-wrap: wrap;
+}
+
+.button-toolbar > button > .button-icon:has(.audioicon) + span.button-toolbar-menu-indicator {
+  display:none;
+}

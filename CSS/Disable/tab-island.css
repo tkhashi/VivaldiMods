@@ -1,0 +1,54 @@
+#titlebar {
+    margin: 0px 0px 0px 5px;
+    border-radius: 10px 10px 0 0;
+}
+
+.inner{
+    margin: 0px 10px 10px 10px;
+}
+
+#browser:not(.address-top-off) > #main > .mainbar > .toolbar{
+    /* border-radius: 10px; */
+    border-radius: 0px 0px 10px 10px;
+    margin: 0px 10px 5px 10px;
+}
+
+#panels-container:not(.switcher){
+    margin: 0px 5px 0px 0px;
+    /* border-radius: 10px; */
+    border-radius: 0px 0px 10px 10px;
+}
+
+/* Tabs-left case */
+#tabs-tabbar-container.left:not(.switcher){
+    margin: 0px 5px 0px 0px;
+    border-radius: 10px;
+}
+
+/* Tabs-Top case */
+#tabs-tabbar-container.top:not(.switcher){
+    margin: 5px 10px 5px 10px;
+    border-radius: 10px;
+    padding-top: 3px !important;
+    border-color: transparent;
+}
+#tabs-container.top{
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+#webpage-stack{
+    margin: 0px 0px 0px 0px;
+    border-radius: 10px;
+}
+
+/* For tab-tile */
+#webview-container:has(#webpage-stack .mosaic.visible){
+    box-shadow: none;
+    padding: 0;
+}
+
+footer{
+    border-radius: 10px 10px 10px 10px ;
+    margin: 5px;
+}

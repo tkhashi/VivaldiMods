@@ -24,7 +24,6 @@
     // It can't register Shift+Delete for some reason(Ctrl|Alt+Delete has default function).
     const DELETE_TAB_KEY_COMBO = "Alt+Delete";
     function handleKeyboardShortcut(_, combo) {
-        console.log(combo);
         if(DELETE_TAB_KEY_COMBO !== combo) return;
 
         // Delete tab
@@ -102,27 +101,27 @@
         });
     }
 
-    // CSS to apply every time the inside of the modal-bg is updated
-    function setQcModalCss(){
-        const css = `
-            /* QC Height and Width */
-            .qc-modal {top: 20vh !important;}
-            .quick-command-container, .quick-command-container .quick-commands > div {width:60vw !important; }
-            .quick-command-container .quick-commands > div > div {max-width: 100% !important;}
-            .quick-commands {max-height: 100% !important;}
-            .quick-commands > div {height: 50vh !important;}
+//     // CSS to apply every time the inside of the modal-bg is updated
+//     function setQcModalCss(){
+//         const css = `
+//             /* QC Height and Width */
+//             .qc-modal {top: 20vh !important;}
+//             .quick-command-container, .quick-command-container .quick-commands > div {width:60vw !important; }
+//             .quick-command-container .quick-commands > div > div {max-width: 100% !important;}
+//             .quick-commands {max-height: 100% !important;}
+//             .quick-commands > div {height: 30vh !important;}
 
-            /* Closed tabs */
-            .strikethrough-text {
-                text-decoration: line-through;
-                opacity: 0.3;
-            }
-        `;
+//             /* Closed tabs */
+//             .strikethrough-text {
+//                 text-decoration: line-through;
+//                 opacity: 0.3;
+//             }
+//         `;
 
-        const style = document.createElement('style');
-        style.appendChild(document.createTextNode(css));
-        document.head.appendChild(style);
-    }
+//         const style = document.createElement('style');
+//         style.appendChild(document.createTextNode(css));
+// //        document.head.appendChild(style);
+//     }
 
     // Observe entire html to appeare qc-modal
     function startObservingModalBg() {
@@ -143,10 +142,10 @@
             for (var i = 0; i < addedNodes.length; i++) {
                 if (addedNodes[i].id !== 'modal-bg') continue;
                 addCloseButtonsToQuickCommands();
-                setQcModalCss();
+                // setQcModalCss();
 
                 const observer = new MutationObserver(() => {
-                    setQcModalCss();
+                    // setQcModalCss();
                     addCloseButtonsToQuickCommands()
                 });
                 const gridListElement = document.getElementById('modal-bg');

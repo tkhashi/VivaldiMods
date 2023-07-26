@@ -1,0 +1,128 @@
+/* ADD BOOKMARK DIALOG */
+.BookmarkButton svg>g>path.bookmark-animated-fill {
+    fill: var(--colorHighlightBg) !important;
+}
+
+/* Added bookmark button hightlight */
+
+.address-top .button-popup:has(.BookmarkPopup) {
+    max-height: 99vh;
+    margin-top: 7px;
+    z-index: 99;
+}
+
+/* enable full height popup dialog */
+
+.address-top .BookmarkPopup>header>h1 {
+    font-size: 0;
+}
+
+/* hide header */
+.address-top .BookmarkPopup>header>p {
+    text-indent: -22px;
+    clip-path: inset(0 0 0 -7px);
+}
+
+/* adjust selected folder title, might need adjustment for non-English language GUI */
+
+.BookmarkPopup-TextInputWrapper {
+    gap: 3px;
+    /* order:1; */
+}
+
+/* compact bookmark form, u can relocate FORM to bottom by enabled "order:1;" */
+
+.BookmarkLocationSelector-ToggleButtonGroup-Button {
+    font-size: 0;
+    padding: 9px 6px 10px;
+}
+
+/* no text compact folder/SD selection tabs */
+.BookmarkLocationSelector-ToggleButtonGroup-Button svg {
+    margin-left: 6px;
+}
+
+/* tab icon adjustment */
+.BookmarkLocationSelector-ToggleButtonGroup-Button:is(:hover, :focus-within) svg.folder-icon .fill-override {
+    fill: var(--colorHighlightBg);
+    transform-origin: center;
+    transform: scale(1.2);
+}
+
+/* improved tab icon hover/focus effect */
+.BookmarkLocationSelector-ToggleButtonGroup-Button:not(.BookmarkLocationSelector-ToggleButtonGroup-Button--Pressed) {
+    box-shadow: unset !important;
+}
+
+/* fix: confusing focus effect */
+
+.BookmarkLocationSelector-SearchInput {
+    transform: translateY(-46px);
+    padding: 0;
+    margin: 0 9px 0 85px;
+}
+
+/* compact searchbox */
+.BookmarkLocationSelector-FolderList {
+    margin-top: -48px;
+}
+
+/* tree list adjustment */
+
+@media only screen and (min-height: 450px) {
+    .address-top .BookmarkLocationSelector.BookmarkPopup-LocationSelector {
+        height: calc(100vh - 330px);
+    }
+
+    /* extend folder selection list */
+}
+
+.theme-dark .BookmarkPopup>footer>input.danger {
+    color: coral;
+    border-color: coral;
+}
+
+/* fix: dark theme REMOVE button color */
+.address-top .button-popup.button-popup-enter-done .BookmarkPopup>footer>input.danger {
+    position: absolute;
+    right: 0;
+    transform: translateY(calc(-100vh + 128px)) scale(0.8);
+}
+
+/* REMOVE button on top */
+.address-top .BookmarkPopup>footer>input[type="submit"] {
+    width: 100%;
+}
+
+/* big DONE button */
+
+/* compact mode for small height window */
+@media only screen and (max-height: 450px) {
+    .address-top .DialogContent.BookmarkPopup-Content {
+        overflow: auto;
+        max-height: calc(100vh - 110px);
+    }
+
+    /* transform popup to scrollable */
+    .address-top .BookmarkLocationSelector.BookmarkPopup-LocationSelector {
+        height: calc(100vh - 114px);
+    }
+
+    /* optional: limit scrollable content to 2 pages */
+    .address-top .BookmarkPopup {
+        grid-template-rows: auto auto 0;
+    }
+
+    /* exclude footer height from popup dialog */
+    .address-top .BookmarkPopup>footer {
+        visibility: hidden;
+        margin-top: -63px;
+    }
+
+    /* hide footer */
+    .address-top .button-popup.button-popup-enter-done .BookmarkPopup>footer>input.danger {
+        visibility: visible;
+    }
+
+    /* adjust REMOVE button when hide footer */
+}
