@@ -81,7 +81,6 @@
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #main .bookmark-bar,
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) footer:has(.toolbar-statusbar) {
   grid-column: 1/2;
-  border-radius: var(--radiusCap);
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #panels-container {
   grid-column: 3/4;
@@ -699,14 +698,23 @@ button[title=vvh-disable-statusbar-universal-flex-grow]) {
   border-radius: var(--radius);
 }
 
-:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .mosaic.visible)) {
-  /* margin: 7px; */
+:root:has(#browser:is(.tabs-left):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container.left, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .mosaic.visible)) {
   margin-left: 7px;
 }
+:root:has(#browser:is(.tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container.right, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .mosaic.visible)) {
+  margin-right: 7px;
+}
+:root:has(#browser:is(.tabs-left):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container.right, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .mosaic.visible)),
+:root:has(#browser:is(.tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container.left, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .mosaic.visible)) {
+  margin: 0 7px;
+}
+
+/* :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .mosaic.visible)) {
+  margin-left: 7px;
+} */
+
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .mosaic.visible)) .webpageview.visible {
-  /* margin: 4px; */
   border-radius: var(--radiusCap);
-  /* box-shadow: 0 0 0 2px var(--colorBorder); */
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .mosaic.visible)) .webpageview.visible > .row-wrapper {
   border-radius: var(--radiusCap);
@@ -815,26 +823,23 @@ button[title=vvh-disable-extensions-invert-toggle-position]) {
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .window-buttongroup > button{
   width: 25px;
 }
+
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) #titlebar,
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #titlebar,
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) #titlebar,
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) #titlebar {
-  /* margin-top: 5px; */
   border-radius: var(--radiusCap) var(--radiusCap) 0 0;
 }
 
-:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) #main > .inner #tabs-tabbar-container,
-:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #main > .inner #tabs-tabbar-container,
-:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) #main > .inner #tabs-tabbar-container,
-:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) #main > .inner #tabs-tabbar-container {
-  padding: 10px 0px;
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #panels-container,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) #panels-container {
+  border-radius: var(--radiusCap);
 }
 
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) footer:has(.toolbar-statusbar),
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) footer:has(.toolbar-statusbar),
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) footer:has(.toolbar-statusbar),
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) footer:has(.toolbar-statusbar) {
-  /* margin-bottom: 5px; */
   border-radius: 0 0 var(--radiusCap) var(--radiusCap);
 }
 
