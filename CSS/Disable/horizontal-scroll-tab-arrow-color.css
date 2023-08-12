@@ -1,0 +1,4 @@
+.horizontal-scroll-arrow:not(.disabled){
+    margin: 0 3px 0 3px;
+    background: var(--colorAccentBgAlphaHeavy);
+}

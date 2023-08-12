@@ -38,7 +38,7 @@
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #header,
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main,
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main .mainbar,
-:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main .inner {
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main .inner:not(rect) {
   display: contents;
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main .mainbar::before {

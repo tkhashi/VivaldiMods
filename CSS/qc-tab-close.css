@@ -2,8 +2,8 @@
             .qc-modal {top: 20vh !important;}
             .quick-command-container, .quick-command-container .quick-commands > div {width:60vw !important; }
             .quick-command-container .quick-commands > div > div {max-width: 100% !important;}
-            .quick-commands {max-height: 100% !important;}
-            .quick-commands > div {height: 30vh !important;}
+            /* .quick-commands {max-height: 100% !important;}
+            .quick-commands > div {height: 30vh !important;} */
 
             /* Closed tabs */
             .strikethrough-text {
