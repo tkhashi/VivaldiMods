@@ -3,10 +3,8 @@
   const COMMAND_CHAIN_BUTTON_NAME = "V_TILE_STYLE";
   // -------------------
 
-  async function tileStyling(event) {
-    // class = visible mosaic > mosaic-root > 
-    // 2ページ・左右という前提
-    // class = mosaic-tile | mosaic-split | mosaic-tile の順
+  function tileStyling() {
+    // 2ページ・左右タイリングという前提
     // style="inset: {上の余白}% {右の余白}% {下の余白}% {左の余白}%"
 
     // 1. class = 'visible mosaic'を取得
@@ -39,7 +37,7 @@
         function () {
           if (this.classList.contains("ToolbarButton-Button")) {
             if (this.title === COMMAND_CHAIN_BUTTON_NAME) {
-              this.addEventListener("click", e => tileStyling(e));
+              this.addEventListener("click", tileStyling);
             }
           }
         }.bind(this, arguments[0])
