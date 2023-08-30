@@ -43,6 +43,7 @@
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main .mainbar::before {
   content: " ";
+  background-color: var(--colorAccentBg);
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #webview-container {
   grid-row: 1/-1;
