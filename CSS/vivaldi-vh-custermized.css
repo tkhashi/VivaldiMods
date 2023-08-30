@@ -43,7 +43,6 @@
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main .mainbar::before {
   content: " ";
-  background-color: var(--colorAccentBg);
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #webview-container {
   grid-row: 1/-1;
@@ -359,8 +358,13 @@
   background-color: var(--colorBg);
   -webkit-app-region: drag;
 }
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) :has(#browser.color-behind-tabs-off:not(.is-settingspage)) .mainbar::before,
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) :has(#browser.color-behind-tabs-off:not(.is-settingspage)) #titlebar {
   background-color: var(--colorAccentBg);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) :has(#browser.color-behind-tabs-on:not(.is-settingspage)) .mainbar::before,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) :has(#browser.color-behind-tabs-on:not(.is-settingspage)) #titlebar {
+  background-color: var(--colorBg);
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #main .toolbar-mainbar {
   flex-wrap: wrap;
