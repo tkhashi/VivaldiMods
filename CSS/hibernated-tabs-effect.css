@@ -1,0 +1,3 @@
+#tabs-container .tab.isdiscarded .tab-header {
+    filter: grayscale(80%) opacity(0.5);
+}
