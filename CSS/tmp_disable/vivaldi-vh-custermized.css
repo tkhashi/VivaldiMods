@@ -853,3 +853,30 @@ button[title=vvh-disable-extensions-invert-toggle-position]) {
     box-shadow: none;
     padding: 0;
 }
+
+/* Address bar icons */
+/* Loading progress */
+.pageload-ticker{
+  display: none;
+}
+/* Warnning in short address-bar */
+.UrlBar-UrlObfuscationWarning{
+  display: none;
+}
+/* Dont safe because http domain */
+.siteinfo-text{
+  display: none;
+}
+/* Drop down menu of address-bar */
+.drop-down-menu{
+  display: none;
+}
+/* reader-mode button, bookmark button ... */
+.toolbar-small>.button-toolbar{
+  display: none;
+}
+
+.CalendarEventBubble {
+  grid-row: 3/3;
+  grid-column: 1/2;
+}

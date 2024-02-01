@@ -1,0 +1,1017 @@
+/*
+  Vivaldi VH
+  Version: 1.3.1
+  Target Vivaldi Browser versions: 6.2
+
+  Vivaldi VH is a CSS modification for Vivaldi Browser that grants your webpages the entire vertical space of the browser window by moving the rest of the UI into a separate column.
+
+  Copyright (c) 2023 HKayn <https://hkayn.com>
+*/
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser {
+  --vvh-input-field-extend-on-focus-margin-offset: 35px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:has(#panels-container.switcher) {
+  --vvh-input-field-extend-on-focus-margin-offset: 0px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:has(#panels-container.switcher #panel_switch) {
+  --vvh-input-field-extend-on-focus-margin-offset: 10px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:has(#panel_switch) {
+  --vvh-input-field-extend-on-focus-margin-offset: calc(10px + 35px);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left), :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) {
+  --vvh-input-field-extend-on-focus-margin: calc(
+    max(100% - 1200px, 100% - 100vw) + 9px
+  ) !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right), :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) {
+  --vvh-input-field-extend-on-focus-margin: calc(
+    max(100% - 1200px, 100% - 100vw) +
+      calc(9px + var(--vvh-input-field-extend-on-focus-margin-offset))
+  ) !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser {
+  display: grid;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser::before {
+  content: "";
+  grid-row: 1/-1;
+  backdrop-filter: var(--backgroundBlur);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left::before {
+  grid-column: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right::before {
+  grid-column: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.is-settingspage).color-accent-from-page.color-behind-tabs-on.transparent-tabbar.tabs-left .tabbar-wrapper:before, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.is-settingspage).color-accent-from-page.color-behind-tabs-on.transparent-tabbar.tabs-right .tabbar-wrapper:before, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar .mainbar::before {
+  backdrop-filter: unset;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #panels-container {
+  z-index: 5;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main .toolbar-mainbar:has(:is(#urlFieldInput, .vivaldi-searchfield.searchfield-input):focus),
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser footer:has(.toolbar-statusbar):has(:is(#urlFieldInput, .vivaldi-searchfield.searchfield-input):focus) {
+  z-index: 6;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main .mainbar::before {
+  z-index: 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.native {
+  border-top: 1px solid var(--colorBorder);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main .bookmark-bar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser footer:has(.toolbar-statusbar) {
+  border: none;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left #titlebar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left #main .bookmark-bar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left footer:has(.toolbar-statusbar) {
+  border-right: 1px solid var(--colorBorder);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right #titlebar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right #main .bookmark-bar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right footer:has(.toolbar-statusbar) {
+  border-left: 1px solid var(--colorBorder);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.address-bottom.bookmark-bar-top #titlebar, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.address-top #main .toolbar-mainbar, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.bookmark-bar-top #main .bookmark-bar {
+  border-bottom: 1px solid var(--colorBorder);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.address-bottom #main .toolbar-mainbar, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.bookmark-bar-bottom #main .bookmark-bar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser footer:has(.toolbar-statusbar) {
+  border-top: 1px solid var(--colorBorder);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #header,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main > .mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main > .inner {
+  display: contents;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #main .mainbar::before {
+  content: " ";
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #panels-container,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #webview-container {
+  grid-row: 1/-1;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) {
+  grid-template-columns: min-content min-content 1fr;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) #titlebar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) #main .mainbar::before,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) #header .topmenu,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) #main .bookmark-bar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) footer:has(.toolbar-statusbar) {
+  grid-column: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) #panels-container {
+  grid-column: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) #main > .inner > .tabbar-wrapper {
+  grid-column: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.left) #webview-container {
+  grid-column: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) {
+  grid-template-columns: min-content 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #titlebar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #main .mainbar::before,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #header .topmenu,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #main .bookmark-bar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) footer:has(.toolbar-statusbar) {
+  grid-column: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #panels-container {
+  grid-column: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #main > .inner > .tabbar-wrapper {
+  grid-column: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-left:has(#panels-container.right) #webview-container {
+  grid-column: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) {
+  grid-template-columns: min-content 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) #titlebar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) #main .mainbar::before,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) #header .topmenu,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) #main .bookmark-bar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) footer:has(.toolbar-statusbar) {
+  grid-column: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) #panels-container {
+  grid-column: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) #main > .inner > .tabbar-wrapper {
+  grid-column: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.left) #webview-container {
+  grid-column: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) {
+  grid-template-columns: 1fr min-content min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) #titlebar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) #main .mainbar::before,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) #header .topmenu,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) #main .bookmark-bar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) footer:has(.toolbar-statusbar) {
+  grid-column: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) #panels-container {
+  grid-column: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) #main > .inner > .tabbar-wrapper {
+  grid-column: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.tabs-right:has(#panels-container.right) #webview-container {
+  grid-column: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #titlebar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser #header .topmenu {
+  grid-row: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser footer {
+  grid-row: -2/-1;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-top {
+  grid-template-rows: min-content min-content 1fr;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-top #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-top #main .mainbar::before {
+  grid-row: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-top #main .bookmark-bar {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-top #main > .inner > .tabbar-wrapper {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-top:has(footer .toolbar-statusbar) {
+  grid-template-rows: min-content min-content 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-bottom {
+  grid-template-rows: min-content 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-bottom #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-bottom #main .mainbar::before {
+  grid-row: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-bottom #main > .inner > .tabbar-wrapper {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-bottom #main .bookmark-bar {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-bottom:has(footer .toolbar-statusbar) {
+  grid-template-rows: min-content 1fr min-content min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-top-off, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-bottom-off {
+  grid-template-rows: min-content 1fr;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-top-off #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-top-off #main .mainbar::before, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-bottom-off #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-bottom-off #main .mainbar::before {
+  grid-row: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-top-off #main > .inner > .tabbar-wrapper, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-bottom-off #main > .inner > .tabbar-wrapper {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-top-off:has(footer .toolbar-statusbar), :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-top.bookmark-bar-bottom-off:has(footer .toolbar-statusbar) {
+  grid-template-rows: min-content 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-top {
+  grid-template-rows: min-content 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-top #main .bookmark-bar {
+  grid-row: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-top #main > .inner > .tabbar-wrapper {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-top #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-top #main .mainbar::before {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-top:has(footer .toolbar-statusbar) {
+  grid-template-rows: min-content 1fr min-content min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-bottom {
+  grid-template-rows: 1fr min-content min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-bottom #main > .inner > .tabbar-wrapper {
+  grid-row: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-bottom #main .bookmark-bar {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-bottom #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-bottom #main .mainbar::before {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-bottom:has(footer .toolbar-statusbar) {
+  grid-template-rows: 1fr min-content min-content min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-top-off, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-bottom-off {
+  grid-template-rows: 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-top-off #main > .inner > .tabbar-wrapper, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-bottom-off #main > .inner > .tabbar-wrapper {
+  grid-row: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-top-off #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-top-off #main .mainbar::before, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-bottom-off #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-bottom-off #main .mainbar::before {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-top-off:has(footer .toolbar-statusbar), :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.address-bottom.bookmark-bar-bottom-off:has(footer .toolbar-statusbar) {
+  grid-template-rows: 1fr min-content min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-top {
+  grid-template-rows: min-content min-content min-content 1fr;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-top #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-top #main .mainbar::before {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-top #main .bookmark-bar {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-top #main > .inner > .tabbar-wrapper {
+  grid-row: 4/5;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-top:has(footer .toolbar-statusbar) {
+  grid-template-rows: min-content min-content min-content 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-bottom {
+  grid-template-rows: min-content min-content 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-bottom #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-bottom #main .mainbar::before {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-bottom #main > .inner > .tabbar-wrapper {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-bottom #main .bookmark-bar {
+  grid-row: 4/5;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-bottom:has(footer .toolbar-statusbar) {
+  grid-template-rows: min-content min-content 1fr min-content min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-top-off, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-bottom-off {
+  grid-template-rows: min-content min-content 1fr;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-top-off #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-top-off #main .mainbar::before, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-bottom-off #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-bottom-off #main .mainbar::before {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-top-off #main > .inner > .tabbar-wrapper, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-bottom-off #main > .inner > .tabbar-wrapper {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-top-off:has(footer .toolbar-statusbar), :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-top.bookmark-bar-bottom-off:has(footer .toolbar-statusbar) {
+  grid-template-rows: min-content min-content 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-top {
+  grid-template-rows: min-content min-content 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-top #main .bookmark-bar {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-top #main > .inner > .tabbar-wrapper {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-top #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-top #main .mainbar::before {
+  grid-row: 4/5;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-top:has(footer .toolbar-statusbar) {
+  grid-template-rows: min-content min-content 1fr min-content min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-bottom {
+  grid-template-rows: min-content 1fr min-content min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-bottom #main > .inner > .tabbar-wrapper {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-bottom #main .bookmark-bar {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-bottom #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-bottom #main .mainbar::before {
+  grid-row: 4/5;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-bottom:has(footer .toolbar-statusbar) {
+  grid-template-rows: min-content 1fr min-content min-content min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-top-off, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-bottom-off {
+  grid-template-rows: min-content 1fr min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-top-off #main > .inner > .tabbar-wrapper, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-bottom-off #main > .inner > .tabbar-wrapper {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-top-off #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-top-off #main .mainbar::before, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-bottom-off #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-bottom-off #main .mainbar::before {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-top-off:has(footer .toolbar-statusbar), :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).address-bottom.bookmark-bar-bottom-off:has(footer .toolbar-statusbar) {
+  grid-template-rows: min-content 1fr min-content min-content;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #header .topmenu {
+  align-items: center;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #header .topmenu > * {
+  margin: 0 !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #header .topmenu .horizontal-menu-pagetitle {
+  width: 0;
+  flex: 1;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #titlebar {
+  display: flex;
+  position: relative;
+  min-height: calc(25px / var(--uiZoomLevel));
+  background-color: var(--colorBg);
+  -webkit-app-region: drag;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) :has(#browser.color-behind-tabs-off:not(.is-settingspage)) #titlebar {
+  background-color: var(--colorAccentBg);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #main .toolbar-mainbar {
+  flex-wrap: wrap;
+  height: auto;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).color-behind-tabs-on #main .toolbar-mainbar {
+  background-color: var(--colorBg);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.disable-titlebar).color-behind-tabs-off #main .toolbar-mainbar {
+  background-color: var(--colorAccentBg);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar {
+  /*
+  // Commented out to work around visual artifacts with backdrop-filter
+
+  .mainbar::before {
+    backdrop-filter: var(--backgroundBlur);
+  }
+  */
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar:has(#main .toolbar-mainbar .vivaldi .vivaldi-v) {
+  --vvh-address-bar-menu-button-width: 44px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar:has(#main .toolbar-mainbar .vivaldi .burger-icon) {
+  --vvh-address-bar-menu-button-width: 35px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.native:not(.mac) {
+  --vvh-address-bar-window-buttons-width: var(
+    --vvh-address-bar-menu-button-width
+  ) !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar:not(.native) #main .toolbar-mainbar .toolbar-extensions > .button-toolbar {
+  margin: 0 auto;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar #main .toolbar-mainbar {
+  background: linear-gradient(90deg, transparent var(--vvh-address-bar-window-buttons-width), var(--vvh-address-bar-background-color) var(--vvh-address-bar-window-buttons-width)), linear-gradient(transparent 34px, var(--vvh-address-bar-background-color) 34px);
+  padding: 0;
+  -webkit-app-region: drag;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar #main .toolbar-mainbar::before {
+  content: " ";
+  width: var(--vvh-address-bar-window-buttons-width);
+  height: 34px;
+  border-radius: 0 0 var(--radius) 0;
+  border-bottom: 1px solid var(--colorBorder);
+  border-right: 1px solid var(--colorBorder);
+  margin: 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar #main .toolbar-mainbar::after {
+  content: " ";
+  position: absolute;
+  top: calc(34px - var(--radius) + 1px);
+  left: calc(var(--vvh-address-bar-window-buttons-width) - var(--radius) + 1px);
+  z-index: 1;
+  height: var(--radius);
+  width: var(--radius);
+  background-color: var(--vvh-address-bar-background-color);
+  -webkit-mask-image: radial-gradient(circle at 0 0, rgba(0, 0, 0, 0) 70%, #000 73%);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar #main .toolbar-mainbar .vivaldi,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar #main .toolbar-mainbar .window-buttongroup {
+  position: absolute;
+  scale: unset;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar #main .toolbar-mainbar .vivaldi {
+  margin: 0 !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar #main .toolbar-mainbar .vivaldi:hover {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar #main .toolbar-mainbar .window-buttongroup {
+  border-radius: 0 0 var(--radius) 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.theme-dark #main .toolbar-mainbar .vivaldi:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.color-behind-tabs-off {
+  --vvh-address-bar-background-color: var(--colorAccentBg);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.color-behind-tabs-off #main .toolbar-mainbar .window-buttongroup > button {
+  fill: var(--colorFg);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.color-behind-tabs-off #main .toolbar-mainbar .vivaldi {
+  color: var(--colorFg);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.color-behind-tabs-on {
+  --vvh-address-bar-background-color: var(--colorBg);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.color-behind-tabs-on #main .toolbar-mainbar .window-buttongroup > button {
+  fill: var(--colorAccentFg);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.color-behind-tabs-on #main .toolbar-mainbar .vivaldi {
+  color: var(--colorAccentFg);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.transparent-tabbar:not(.acc-dark.bg-dark.color-accent-from-page.color-behind-tabs-on) #main .toolbar-mainbar .window-buttongroup > button {
+  fill: var(--colorImageFg, var(--colorFg));
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.transparent-tabbar:not(.acc-dark.bg-dark.color-accent-from-page.color-behind-tabs-on) #main .toolbar-mainbar .vivaldi {
+  color: var(--colorImageFg, var(--colorFg));
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar:not(.transparent-tabbar) .mainbar::before {
+  background-color: var(--colorTabBar, transparent);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.transparent-tabbar.color-accent-from-page.color-behind-tabs-on .mainbar::before {
+  background-color: var(--colorAccentBg);
+  mix-blend-mode: multiply;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.transparent-tabbar #main .toolbar-mainbar::before {
+  background-color: var(--colorImageRightFgAlphaHeavy);
+  box-shadow: inset -1px 0 0 0 var(--colorImageRightFgAlphaHeavy);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.win {
+  --vvh-address-bar-window-buttons-width: calc(
+    var(--vvh-address-bar-menu-button-width) + 138px +
+      1px
+  );
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.win #main .toolbar-mainbar .vivaldi,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.win #main .toolbar-mainbar .window-buttongroup {
+  height: 34px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.win #main .toolbar-mainbar .window-buttongroup {
+  left: var(--vvh-address-bar-menu-button-width);
+  right: unset;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.win #main .toolbar-mainbar .window-buttongroup > .window-close:hover {
+  fill: #fff !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.mac {
+  --vvh-address-bar-window-buttons-width: calc(
+    12px +
+      80px
+  );
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.mac #main .toolbar-mainbar .window-buttongroup {
+  position: absolute;
+  top: 10px;
+  left: 0;
+  margin-left: 20px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.linux {
+  --vvh-address-bar-window-buttons-width: calc(
+    (
+        var(--vvh-address-bar-menu-button-width) + 81px
+      ) + 9px
+  );
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.linux #main .toolbar-mainbar .vivaldi {
+  height: 34px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.disable-titlebar.linux #main .toolbar-mainbar .window-buttongroup {
+  align-items: center;
+  top: 7px;
+  left: var(--vvh-address-bar-menu-button-width);
+  right: unset;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #main .bookmark-bar {
+  position: relative;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #main .bookmark-bar .observer {
+  position: absolute;
+  inset: 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #panels-container {
+  max-width: unset;
+  border-color: var(--colorBorder);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #panels-container.overlay {
+  position: relative;
+  inset: 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) footer:has(.toolbar-statusbar):after {
+  content: none;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) footer:has(.toolbar-statusbar) .toolbar-statusbar {
+  flex-wrap: wrap;
+  height: auto;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .toolbar-statusbar > .button-toolbar > button, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .toolbar-statusbar .toolbar-extensions .button-toolbar > button, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .toolbar-statusbar .page-zoom-controls .button-toolbar > button {
+  min-width: 32px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #main.left ~ footer > .toolbar-statusbar > .button-toolbar:first-of-type.panel-clickoutside-ignore button, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #main.right ~ footer > .toolbar-statusbar > .button-toolbar:last-of-type.panel-clickoutside-ignore button {
+  min-width: 32px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) :has(#panels-container.overlay:not(.minimized).button) #main > .inner > .tabbar-wrapper {
+  margin: 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #webpage-stack {
+  -webkit-app-region: drag;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #webpage-stack .webpageview,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #webpage-stack .mosaic-split {
+  -webkit-app-region: no-drag;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #panels-container.overlay:not(.minimized).button.right ~ div:last-of-type {
+  margin-right: 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .UrlBar-AddressField {
+  z-index: 2;
+  margin: 5px 9px;
+  flex: 1 1 100%;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .UrlBar-AddressField:has(.OmniDropdown) {
+  z-index: 3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .UrlBar-AddressField .UrlBar-UrlFieldWrapper {
+  min-width: unset;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .UrlBar-AddressField > .toolbar {
+  padding-left: 0 !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .UrlBar-AddressField > .toolbar > .UrlBar-UrlObfuscationWarning {
+  height: 22px;
+  width: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .button-toolbar.toolbar-command:has(> button[title^=vvh-insert-linebreak]) {
+  flex: 1 1 100%;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(> button[title^=vvh-insert-linebreak]) {
+  height: 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(> button[title^=vvh-insert-linebreak]) > button {
+  display: none;
+}
+:root:not(:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom))) #browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(> button[title^=vvh-insert-linebreak]) {
+  display: none;
+}
+
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(> button[title^=vvh-insert-linebreak]) {
+  height: 26px;
+  opacity: 0.5;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(> button[title^=vvh-insert-linebreak]) > button {
+  height: 26px;
+}
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(> button[title^=vvh-insert-linebreak]) {
+  opacity: 0.5;
+}
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(> button[title^=vvh-insert-linebreak]) > button::before {
+  content: " ";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border: 1px dashed;
+  border-radius: var(--radius);
+}
+
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .toolbar-extensions {
+  flex-basis: 100%;
+  box-sizing: border-box;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(34px, 1fr));
+  justify-content: space-between;
+  align-items: start;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .toolbar-extensions:has(button[name=Extensions]) {
+  grid-template-columns: repeat(auto-fit, minmax(34px, 1fr)) 34px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .toolbar-extensions > .button-toolbar:has(> button[name=Extensions]) {
+  grid-row: 1/-9999;
+  grid-column: -1/-2;
+  height: 100%;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .toolbar-extensions > .button-toolbar > button[name=Extensions] {
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .toolbar-extensions > .button-toolbar .button-badge {
+  right: unset;
+  translate: 8px 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .toolbar-extensions > div:last-child:empty {
+  display: none;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.toolbar-edit-mode .toolbar-spacer-flexible {
+  opacity: 0.5;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #browser.toolbar-edit-mode .toolbar-spacer-flexible > button::before {
+  content: " ";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border: 1px dashed;
+  border-radius: var(--radius);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .SearchField:not(.UrlBar-SearchField) {
+  margin: 5px 9px;
+  margin-right: 9px !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .SearchField:not(.UrlBar-SearchField) .UrlBar-UrlFieldWrapper {
+  min-width: unset;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .button-toolbar.toolbar-command:has(> button[title^=vvh-insert-linebreak]) + .SearchField:not(.UrlBar-SearchField):has(+ .button-toolbar.toolbar-command > button[title^=vvh-insert-linebreak]) {
+  flex: 1 1 100%;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .button-textonly:has(.page-zoom-controls) {
+  justify-content: center;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .UrlBar-SearchField {
+  z-index: 2;
+  width: 0;
+  margin: 5px 9px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .UrlBar-SearchField:has(.OmniDropdown) {
+  z-index: 3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .toolbar > .StatusInfo {
+  flex: unset;
+  width: 100%;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .toolbar > .StatusInfo > .StatusInfo-Content {
+  width: 100%;
+  position: absolute;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) .workspace-popup:not(.tabbar-workspace-button) > button {
+  margin: 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) #modal-bg.default-browser {
+  position: fixed;
+  inset: auto 0 0;
+  z-index: 4;
+  background-color: var(--colorBg);
+  box-shadow: 0 -4px 9px 0 rgba(0, 0, 0, 0.2);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressbar-universal-flex-grow])) #browser:is(.native, :not(.disable-titlebar)) #main .toolbar-mainbar > :not(.UrlBar-SearchField,
+.SearchField:not(.UrlBar-SearchField)) {
+  flex-grow: 1;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressbar-universal-flex-grow])) #browser:is(.native, :not(.disable-titlebar)) #main .toolbar-mainbar > .workspace-popup {
+  max-width: unset;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressbar-universal-flex-grow])) #browser:is(.native, :not(.disable-titlebar)) #main .toolbar-mainbar > .workspace-popup > .ToolbarButton-Button .button-icon + .button-toolbar-menu-indicator {
+  margin-left: 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressbar-universal-flex-grow])) #browser.disable-titlebar:not(.native) #main .toolbar-mainbar > * {
+  margin-left: auto;
+  margin-right: auto;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressbar-universal-flex-grow])) #browser.disable-titlebar:not(.native) #main .toolbar-mainbar > .UrlBar-AddressField,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressbar-universal-flex-grow])) #browser.disable-titlebar:not(.native) #main .toolbar-mainbar > .UrlBar-SearchField,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressbar-universal-flex-grow])) #browser.disable-titlebar:not(.native) #main .toolbar-mainbar > .SearchField {
+  margin-left: 9px;
+  margin-right: 9px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressbar-universal-flex-grow])) #browser.disable-titlebar:not(.native).mac #main .toolbar-mainbar > .window-buttongroup {
+  margin-left: 20px;
+  margin-right: 18px;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressbar-universal-flex-grow])) #browser:not(.toolbar-edit-mode) #main .toolbar-mainbar .toolbar-spacer-flexible {
+  display: none;
+}
+#browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(button[title=vvh-enable-addressbar-universal-flex-grow],
+button[title=vvh-disable-addressbar-universal-flex-grow]) {
+  display: none;
+}
+
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-addressbar-universal-flex-grow], button[title=vvh-disable-addressbar-universal-flex-grow]) {
+  opacity: 0.5;
+}
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-addressbar-universal-flex-grow], button[title=vvh-disable-addressbar-universal-flex-grow]) > button::before {
+  content: " ";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border: 1px dashed;
+  border-radius: var(--radius);
+}
+
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-statusbar-universal-flex-grow])) footer .toolbar-statusbar > :not(.UrlBar-SearchField,
+.SearchField:not(.UrlBar-SearchField)) {
+  flex-grow: 1;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-statusbar-universal-flex-grow])) footer .toolbar-statusbar > .workspace-popup {
+  max-width: unset;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-statusbar-universal-flex-grow])) footer .toolbar-statusbar > .workspace-popup > .ToolbarButton-Button .button-icon + .button-toolbar-menu-indicator {
+  margin-left: 0;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-statusbar-universal-flex-grow])) footer .toolbar-statusbar .button-toolbar button:hover {
+  background-color: var(--colorBgDark);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-statusbar-universal-flex-grow])) #browser:not(.toolbar-edit-mode) footer .toolbar-statusbar .toolbar-spacer-flexible {
+  display: none;
+}
+#browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(button[title=vvh-enable-statusbar-universal-flex-grow],
+button[title=vvh-disable-statusbar-universal-flex-grow]) {
+  display: none;
+}
+
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-statusbar-universal-flex-grow], button[title=vvh-disable-statusbar-universal-flex-grow]) {
+  opacity: 0.5;
+}
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-statusbar-universal-flex-grow], button[title=vvh-disable-statusbar-universal-flex-grow]) > button::before {
+  content: " ";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border: 1px dashed;
+  border-radius: var(--radius);
+}
+
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .mosaic.visible)) {
+  padding: 2px;
+  box-shadow: inset 0 0 0 8px var(--colorBgDarker);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .mosaic.visible)) .webpageview.visible {
+  margin: 4px;
+  border-radius: var(--radiusCap);
+  box-shadow: 0 0 0 2px var(--colorBorder);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .mosaic.visible)) .webpageview.visible > .row-wrapper {
+  border-radius: var(--radiusCap);
+}
+#browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(button[title=vvh-enable-webpage-permanent-padding],
+button[title=vvh-disable-webpage-permanent-padding]) {
+  display: none;
+}
+
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-webpage-permanent-padding], button[title=vvh-disable-webpage-permanent-padding]) {
+  opacity: 0.5;
+}
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-webpage-permanent-padding], button[title=vvh-disable-webpage-permanent-padding]) > button::before {
+  content: " ";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border: 1px dashed;
+  border-radius: var(--radius);
+}
+
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #browser.tabs-left #main .toolbar-mainbar .UrlBar-AddressField:has(#urlFieldInput:focus),
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #browser.tabs-left footer:has(.toolbar-statusbar) .UrlBar-AddressField:has(#urlFieldInput:focus) {
+  margin-right: var(--vvh-input-field-extend-on-focus-margin) !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #browser.tabs-right #main .toolbar-mainbar .UrlBar-AddressField:has(#urlFieldInput:focus),
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #browser.tabs-right footer:has(.toolbar-statusbar) .UrlBar-AddressField:has(#urlFieldInput:focus) {
+  margin-left: var(--vvh-input-field-extend-on-focus-margin) !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #main .toolbar-mainbar:has(.UrlBar-AddressField #urlFieldInput),
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) footer:has(.toolbar-statusbar):has(.UrlBar-AddressField #urlFieldInput) {
+  transition: z-index 0s 0.2s;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #main .toolbar-mainbar:has(.UrlBar-AddressField #urlFieldInput:focus),
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) footer:has(.toolbar-statusbar):has(.UrlBar-AddressField #urlFieldInput:focus) {
+  transition: z-index 0s 0s;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) .UrlBar-AddressField {
+  transition: margin cubic-bezier(0, 1, 0.25, 1) 0.2s, flex-basis cubic-bezier(0, 1, 0.25, 1) 0.2s;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) .UrlBar-AddressField:has(#urlFieldInput:focus) {
+  flex-basis: 100vw !important;
+  box-shadow: 0 0 16px 1px var(--colorBorder);
+}
+#browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(button[title=vvh-enable-addressfield-extend-on-focus],
+button[title=vvh-disable-addressfield-extend-on-focus]) {
+  display: none;
+}
+
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-addressfield-extend-on-focus], button[title=vvh-disable-addressfield-extend-on-focus]) {
+  opacity: 0.5;
+}
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-addressfield-extend-on-focus], button[title=vvh-disable-addressfield-extend-on-focus]) > button::before {
+  content: " ";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border: 1px dashed;
+  border-radius: var(--radius);
+}
+
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) #browser.tabs-left #main .toolbar-mainbar .UrlBar-SearchField:has(.searchfield-input:focus),
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) #browser.tabs-left footer:has(.toolbar-statusbar) .UrlBar-SearchField:has(.searchfield-input:focus) {
+  margin-right: var(--vvh-input-field-extend-on-focus-margin) !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) #browser.tabs-right #main .toolbar-mainbar .UrlBar-SearchField:has(.searchfield-input:focus),
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) #browser.tabs-right footer:has(.toolbar-statusbar) .UrlBar-SearchField:has(.searchfield-input:focus) {
+  margin-left: var(--vvh-input-field-extend-on-focus-margin) !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) #main .toolbar-mainbar:has(.UrlBar-SearchField .searchfield-input),
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) footer:has(.toolbar-statusbar):has(.UrlBar-SearchField .searchfield-input) {
+  transition: z-index 0s 0.2s;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) #main .toolbar-mainbar:has(.UrlBar-SearchField .searchfield-input:focus),
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) footer:has(.toolbar-statusbar):has(.UrlBar-SearchField .searchfield-input:focus) {
+  transition: z-index 0s 0s;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) .UrlBar-SearchField {
+  transition: margin cubic-bezier(0, 1, 0.25, 1) 0.2s, flex-basis cubic-bezier(0, 1, 0.25, 1) 0.2s;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) .UrlBar-SearchField:has(.searchfield-input:focus) {
+  flex-basis: 100vw !important;
+  box-shadow: 0 0 16px 1px var(--colorBorder);
+}
+#browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(button[title=vvh-enable-searchfield-extend-on-focus],
+button[title=vvh-disable-searchfield-extend-on-focus]) {
+  display: none;
+}
+
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-searchfield-extend-on-focus], button[title=vvh-disable-searchfield-extend-on-focus]) {
+  opacity: 0.5;
+}
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-searchfield-extend-on-focus], button[title=vvh-disable-searchfield-extend-on-focus]) > button::before {
+  content: " ";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border: 1px dashed;
+  border-radius: var(--radius);
+}
+
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-extensions-invert-toggle-position]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-extensions-invert-toggle-position])) .toolbar-extensions:has(button[name=Extensions]) {
+  grid-template-columns: 34px repeat(auto-fit, minmax(34px, 1fr));
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-extensions-invert-toggle-position]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-extensions-invert-toggle-position])) .toolbar-extensions > .button-toolbar:has(> button[name=Extensions]) {
+  grid-column: 1/2;
+}
+#browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(button[title=vvh-enable-extensions-invert-toggle-position],
+button[title=vvh-disable-extensions-invert-toggle-position]) {
+  display: none;
+}
+
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-extensions-invert-toggle-position], button[title=vvh-disable-extensions-invert-toggle-position]) {
+  opacity: 0.5;
+}
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-extensions-invert-toggle-position], button[title=vvh-disable-extensions-invert-toggle-position]) > button::before {
+  content: " ";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border: 1px dashed;
+  border-radius: var(--radius);
+}
+
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left)::before {
+  grid-column: 1/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left) #titlebar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left) #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left) #main .mainbar::before,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left) #header .topmenu,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left) #main .bookmark-bar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left) footer:has(.toolbar-statusbar) {
+  grid-column: 1/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left) #panels-container {
+  grid-column: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left) #main > .inner > .tabbar-wrapper {
+  grid-column: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right)::before {
+  grid-column: 2/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right) #titlebar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right) #main .toolbar-mainbar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right) #main .mainbar::before,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right) #header .topmenu,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right) #main .bookmark-bar,
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right) footer:has(.toolbar-statusbar) {
+  grid-column: 2/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right) #panels-container {
+  grid-column: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right) #main > .inner > .tabbar-wrapper {
+  grid-column: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left) #switch, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right) #switch {
+  backdrop-filter: unset;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left).disable-titlebar.address-top.bookmark-bar-top #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right).disable-titlebar.address-top.bookmark-bar-top #panels-container {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left).disable-titlebar.address-top.bookmark-bar-bottom #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right).disable-titlebar.address-top.bookmark-bar-bottom #panels-container {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left).disable-titlebar.address-top.bookmark-bar-top-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left).disable-titlebar.address-top.bookmark-bar-bottom-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right).disable-titlebar.address-top.bookmark-bar-top-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right).disable-titlebar.address-top.bookmark-bar-bottom-off #panels-container {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left).disable-titlebar.address-bottom.bookmark-bar-top #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right).disable-titlebar.address-bottom.bookmark-bar-top #panels-container {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left).disable-titlebar.address-bottom.bookmark-bar-bottom #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right).disable-titlebar.address-bottom.bookmark-bar-bottom #panels-container {
+  grid-row: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left).disable-titlebar.address-bottom.bookmark-bar-top-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left).disable-titlebar.address-bottom.bookmark-bar-bottom-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right).disable-titlebar.address-bottom.bookmark-bar-top-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right).disable-titlebar.address-bottom.bookmark-bar-bottom-off #panels-container {
+  grid-row: 1/2;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left):not(.disable-titlebar).address-top.bookmark-bar-top #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right):not(.disable-titlebar).address-top.bookmark-bar-top #panels-container {
+  grid-row: 4/5;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left):not(.disable-titlebar).address-top.bookmark-bar-bottom #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right):not(.disable-titlebar).address-top.bookmark-bar-bottom #panels-container {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left):not(.disable-titlebar).address-top.bookmark-bar-top-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left):not(.disable-titlebar).address-top.bookmark-bar-bottom-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right):not(.disable-titlebar).address-top.bookmark-bar-top-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right):not(.disable-titlebar).address-top.bookmark-bar-bottom-off #panels-container {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left):not(.disable-titlebar).address-bottom.bookmark-bar-top #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right):not(.disable-titlebar).address-bottom.bookmark-bar-top #panels-container {
+  grid-row: 3/4;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left):not(.disable-titlebar).address-bottom.bookmark-bar-bottom #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right):not(.disable-titlebar).address-bottom.bookmark-bar-bottom #panels-container {
+  grid-row: 2/3;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left):not(.disable-titlebar).address-bottom.bookmark-bar-top-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-left:has(#panels-container.left):not(.disable-titlebar).address-bottom.bookmark-bar-bottom-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right):not(.disable-titlebar).address-bottom.bookmark-bar-top-off #panels-container, :root:has(#browser:is(.tabs-left, .tabs-right):is(.address-top, .address-bottom)) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-panel-in-pillar]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-panel-in-pillar])) #browser.tabs-right:has(#panels-container.right):not(.disable-titlebar).address-bottom.bookmark-bar-bottom-off #panels-container {
+  grid-row: 2/3;
+}
+#browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(button[title=vvh-enable-panel-in-pillar],
+button[title=vvh-disable-panel-in-pillar]) {
+  display: none;
+}
+
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-panel-in-pillar], button[title=vvh-disable-panel-in-pillar]) {
+  opacity: 0.5;
+}
+#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-panel-in-pillar], button[title=vvh-disable-panel-in-pillar]) > button::before {
+  content: " ";
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border: 1px dashed;
+  border-radius: var(--radius);
+}
+
+/*# sourceMappingURL=vivaldi-vh.css.map */

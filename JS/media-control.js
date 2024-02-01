@@ -7,13 +7,6 @@
   'use strict';
 
   const gnoh = {
-    encode: {
-      base64: function (str) {
-        return btoa(encodeURIComponent(str).replace(/%([0-9A-F]{2})/g, function (match, p1) {
-          return String.fromCharCode(parseInt(p1, 16));
-        }));
-      }
-    },
     createElement: function (tagName, attribute, parent, inner, options) {
       if (typeof tagName === 'undefined') {
         return;
@@ -205,8 +198,7 @@
         return this.generateUUID(ids);
       }
       return id;
-    },
-    element: {}
+    }
   };
 
   const tabs = {};
@@ -219,6 +211,7 @@
   const colorLoadeds = {};
   let buttonBadges = [];
   let dragSource = null;
+  let lucidModeVideo = false;
 
   const langs = {
     search: chrome.i18n.getMessage('verb_4__83_earch0')
@@ -242,16 +235,18 @@
       high: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M14,3.23V5.29C16.89,6.15 19,8.83 19,12C19,15.17 16.89,17.84 14,18.7V20.77C18,19.86 21,16.28 21,12C21,7.72 18,4.14 14,3.23M16.5,12C16.5,10.23 15.5,8.71 14,7.97V16C15.5,15.29 16.5,13.76 16.5,12M3,9V15H7L12,20V4L7,9H3Z" /></svg>',
       medium: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M5,9V15H9L14,20V4L9,9M18.5,12C18.5,10.23 17.5,8.71 16,7.97V16C17.5,15.29 18.5,13.76 18.5,12Z" /></svg>',
       off: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path fill="currentColor" d="M12,4L9.91,6.09L12,8.18M4.27,3L3,4.27L7.73,9H3V15H7L12,20V13.27L16.25,17.53C15.58,18.04 14.83,18.46 14,18.7V20.77C15.38,20.45 16.63,19.82 17.68,18.96L19.73,21L21,19.73L12,10.73M19,12C19,12.94 18.8,13.82 18.46,14.64L19.97,16.15C20.62,14.91 21,13.5 21,12C21,7.72 18,4.14 14,3.23V5.29C16.89,6.15 19,8.83 19,12M16.5,12C16.5,10.23 15.5,8.71 14,7.97V10.18L16.45,12.63C16.5,12.43 16.5,12.21 16.5,12Z" /></svg>'
-    }
+    },
+    lucidModeVideo: '<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><path d="M19,1L17.74,3.75L15,5L17.74,6.26L19,9L20.25,6.26L23,5L20.25,3.75M9,4L6.5,9.5L1,12L6.5,14.5L9,20L11.5,14.5L17,12L11.5,9.5M19,15L17.74,17.74L15,19L17.74,20.25L19,23L20.25,20.25L23,19L20.25,17.74" style="fill:currentColor"></path></svg>'
   };
 
-  icons.base64 = {
-    playlistMusic: 'data:image/svg+xml;base64,' + gnoh.encode.base64(icons.playlistMusic),
+  icons.dataURLs = {
+    playlistMusic: 'data:image/svg+xml, ' + icons.playlistMusic,
   };
 
   const buttons = {
     pause: {
       icon: icons.pause,
+      disabled: true,
       click: function (event) {
         event.preventDefault();
         Object.keys(tabs).forEach(function (key) {
@@ -263,6 +258,7 @@
     },
     volume: {
       icon: icons.volume.high,
+      disabled: true,
       muted: false,
       click: function (event) {
         event.preventDefault();
@@ -276,6 +272,17 @@
               tabs[key].buttonVolume.click();
             }
           }
+        });
+      }
+    },
+    lucidModeVideo: {
+      icon: icons.lucidModeVideo,
+      disabled: true,
+      click: function (event) {
+        event.preventDefault();
+        lucidModeVideo = !lucidModeVideo;
+        chrome.storage.local.set({
+          LUCID_MODE_VIDEO: lucidModeVideo
         });
       }
     }
@@ -292,98 +299,167 @@
       window.globalMediaControls = true;
     }
     const messageType = 'global-media-controls';
-    const nameAttribute = 'global-media-controls';
-    let currentVideo;
 
     chrome.runtime.onMessage.addListener(function (info, sender, sendResponse) {
       if (info.type === messageType) {
-        switch (info.action) {
-          case 'play':
-          case 'pause':
-            if (currentVideo) {
-              currentVideo[info.action]();
+        function awaitSendResponse(event) {
+          if (
+            event
+            && event.data
+            && event.data.type === messageType + '-internal'
+            && event.data.data && event.data.data.action === info.action + '-end'
+          ) {
+            window.removeEventListener('message', awaitSendResponse);
+            if (event.data.data.hasSendResponse) {
+              sendResponse();
             }
-            break;
-          case 'muted':
-            if (currentVideo) {
-              if (currentVideo.volume === 0) {
-                currentVideo[info.action] = false;
-                currentVideo.volume = 1;
-              } else {
-                currentVideo[info.action] = !currentVideo[info.action];
-              }
+          }
+        }
+        window.addEventListener('message', awaitSendResponse);
+        window.postMessage({
+          type: messageType + '-internal',
+          data: info
+        });
+        return true;
+      }
+    });
+
+    window.addEventListener('message', function (event) {
+      if (event && event.data && event.data.type === messageType) {
+        chrome.runtime.sendMessage(event.data.data);
+      }
+    });
+  }
+
+  function injectMain() {
+    if (window.globalMediaControlsMain) {
+      return;
+    } else {
+      window.globalMediaControlsMain = true;
+    }
+    const messageType = 'global-media-controls';
+    const nameAttribute = 'global-media-controls';
+    let currentVideo;
+
+    const playVideoOriginal = HTMLVideoElement.prototype.play;
+    HTMLVideoElement.prototype.play = function () {
+      if (!this.globalMediaControls) {
+        addEventListeners(this);
+      }
+      return playVideoOriginal.apply(this, arguments);
+    }
+
+    const playAudioOriginal = HTMLAudioElement.prototype.play;
+    HTMLAudioElement.prototype.play = function () {
+      if (!this.globalMediaControls) {
+        addEventListeners(this);
+      }
+      return playAudioOriginal.apply(this, arguments);
+    }
+
+    const addEventListenerVideoOriginal = HTMLVideoElement.prototype.addEventListener;
+    HTMLVideoElement.prototype.addEventListener = function () {
+      if (!this.globalMediaControls) {
+        addEventListeners(this);
+      }
+      return addEventListenerVideoOriginal.apply(this, arguments);
+    }
+
+    const addEventListenerAudioOriginal = HTMLAudioElement.prototype.addEventListener;
+    HTMLAudioElement.prototype.addEventListener = function () {
+      if (!this.globalMediaControls) {
+        addEventListeners(this);
+      }
+      addEventListenerAudioOriginal.apply(this, arguments);
+    }
+
+    window.addEventListener('message', function (event) {
+      if (
+        !event
+        || !event.data
+        || event.data.type !== messageType + '-internal'
+        || !event.data.data
+        || !event.data.data.action
+        || event.data.data.action.endsWith('-end')
+      ) {
+        return;
+      }
+
+      const info = event.data.data;
+      let hasSendResponse = false;
+
+      switch (info.action) {
+        case 'play':
+        case 'pause':
+          if (currentVideo) {
+            currentVideo[info.action]();
+          }
+          break;
+        case 'muted':
+          if (currentVideo) {
+            if (currentVideo.volume === 0) {
+              currentVideo[info.action] = false;
+              currentVideo.volume = 1;
+            } else {
+              currentVideo[info.action] = !currentVideo[info.action];
             }
-            break;
-          case 'volume':
-            if (currentVideo) {
-              currentVideo[info.action] = info.volume;
-              currentVideo.muted = false;
+          }
+          break;
+        case 'volume':
+          if (currentVideo) {
+            currentVideo[info.action] = info.volume;
+            currentVideo.muted = false;
+          }
+          break;
+        case 'picture-in-picture':
+          if (document.pictureInPictureEnabled) {
+            if (document.pictureInPictureElement) {
+              document.exitPictureInPicture();
+            } else if (currentVideo && !currentVideo.disablePictureInPicture && currentVideo.webkitAudioDecodedByteCount && currentVideo.webkitVideoDecodedByteCount) {
+              currentVideo.requestPictureInPicture();
             }
-            break;
-          case 'picture-in-picture':
-            if (document.pictureInPictureEnabled) {
-              if (document.pictureInPictureElement) {
-                document.exitPictureInPicture();
-              } else if (currentVideo && !currentVideo.disablePictureInPicture && currentVideo.webkitAudioDecodedByteCount && currentVideo.webkitVideoDecodedByteCount) {
-                currentVideo.requestPictureInPicture();
-              }
-            }
-            break;
-          case 'scroll-into-view':
-            if (currentVideo) {
-              if (info.frameId !== 0) {
-                document.documentElement.scrollIntoView({
-                  behavior: 'auto',
-                  block: 'center',
-                  inline: 'center'
-                });
-              }
-              currentVideo.scrollIntoView({
+          }
+          break;
+        case 'scroll-into-view':
+          if (currentVideo) {
+            if (info.frameId !== 0) {
+              document.documentElement.scrollIntoView({
                 behavior: 'auto',
                 block: 'center',
                 inline: 'center'
               });
-              if (document.pictureInPictureEnabled && document.pictureInPictureElement) {
-                document.exitPictureInPicture();
-              }
             }
-            break;
-          case 'close':
+            currentVideo.scrollIntoView({
+              behavior: 'auto',
+              block: 'center',
+              inline: 'center'
+            });
             if (document.pictureInPictureEnabled && document.pictureInPictureElement) {
               document.exitPictureInPicture();
             }
-            currentVideo.setAttribute(nameAttribute, '');
-            currentVideo.removeEventListener('pause', pauseVideo);
-            function waitPause() {
-              currentVideo.removeEventListener('pause', waitPause);
-              currentVideo.addEventListener('pause', pauseVideo);
-              currentVideo = null;
-            }
-            currentVideo.addEventListener('pause', waitPause);
-            currentVideo.pause();
-            sendResponse();
-            break;
-        }
+          }
+          break;
+        case 'close':
+          if (document.pictureInPictureEnabled && document.pictureInPictureElement) {
+            document.exitPictureInPicture();
+          }
+          currentVideo.setAttribute(nameAttribute, '');
+          currentVideo.removeEventListener('pause', pauseVideo);
+          currentVideo.addEventListener('pause', function () {
+            currentVideo.addEventListener('pause', pauseVideo);
+            currentVideo = null;
+          }, { once: true });
+          currentVideo.pause();
+          hasSendResponse = true;
+          break;
       }
-    });
-
-    function observeDOM(obj, callback, config) {
-      const obs = new MutationObserver(function (mutations, observer) {
-        if (config) {
-          callback(mutations, observer);
-        } else if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
-          callback(mutations, observer);
+      event.source.postMessage({
+        type: messageType + '-internal',
+        data: {
+          action: info.action + '-end',
+          hasSendResponse
         }
       });
-      obs.observe(obj, config || {
-        childList: true,
-        subtree: true
-      });
-    }
-
-    injectVideo();
-    observeDOM(document, function () {
-      injectVideo();
     });
 
     function isPlaying(video) {
@@ -449,7 +525,11 @@
           endedVideo(event);
         } else if (!event.target.paused) {
           currentVideo = event.target;
-          chrome.runtime.sendMessage(getDataControl(currentVideo));
+          window.postMessage({
+            type: messageType,
+            data: getDataControl(currentVideo),
+            eventType: event.type
+          });
         }
       }
     }
@@ -461,14 +541,22 @@
           endedVideo(event);
         } else if (!hasVideoPlaying()) {
           currentVideo = event.target;
-          chrome.runtime.sendMessage(getDataControl(currentVideo));
+          window.postMessage({
+            type: messageType,
+            data: getDataControl(currentVideo),
+            eventType: event.type
+          });
         }
       }
     }
 
     function volumechangeVideo(event) {
       if (currentVideo === event.target) {
-        chrome.runtime.sendMessage(getDataControl(currentVideo));
+        window.postMessage({
+          type: messageType,
+          data: getDataControl(currentVideo),
+          eventType: event.type
+        });
       }
     }
 
@@ -477,9 +565,13 @@
       if (enable) {
         if (!hasVideoPlaying()) {
           currentVideo = null;
-          chrome.runtime.sendMessage({
+          window.postMessage({
             type: messageType,
-            ended: true
+            data: {
+              type: messageType,
+              ended: true,
+              eventType: event.type
+            }
           });
         }
       }
@@ -487,27 +579,55 @@
 
     function enterpictureinpictureVideo(event) {
       if (currentVideo === event.target) {
-        chrome.runtime.sendMessage(getDataControl(currentVideo));
+        window.postMessage({
+          type: messageType,
+          data: getDataControl(currentVideo),
+          eventType: event.type
+        });
       }
     }
 
     function leavepictureinpictureVideo(event) {
       if (currentVideo === event.target) {
-        chrome.runtime.sendMessage(getDataControl(currentVideo));
+        window.postMessage({
+          type: messageType,
+          data: getDataControl(currentVideo),
+          eventType: event.type
+        });
       }
     }
 
     function addEventListeners(video) {
+      if (video.globalMediaControls) {
+        return;
+      } else {
+        video.globalMediaControls = true;
+      }
+
       video.setAttribute(nameAttribute, '');
-      video.addEventListener('play', timeupdateVideo);
-      video.addEventListener('timeupdate', timeupdateVideo);
-      video.addEventListener('volumechange', volumechangeVideo);
-      video.addEventListener('playing', timeupdateVideo);
-      video.addEventListener('pause', pauseVideo);
-      video.addEventListener('ended', endedVideo);
-      video.addEventListener('error', endedVideo);
-      video.addEventListener('enterpictureinpicture', enterpictureinpictureVideo);
-      video.addEventListener('leavepictureinpicture', leavepictureinpictureVideo);
+      addEventListenerAudioOriginal.apply(video, ['play', timeupdateVideo]);
+      addEventListenerAudioOriginal.apply(video, ['timeupdate', timeupdateVideo]);
+      addEventListenerAudioOriginal.apply(video, ['volumechange', volumechangeVideo]);
+      addEventListenerAudioOriginal.apply(video, ['playing', timeupdateVideo]);
+      addEventListenerAudioOriginal.apply(video, ['pause', pauseVideo]);
+      addEventListenerAudioOriginal.apply(video, ['ended', endedVideo]);
+      addEventListenerAudioOriginal.apply(video, ['error', endedVideo]);
+      addEventListenerAudioOriginal.apply(video, ['enterpictureinpicture', enterpictureinpictureVideo]);
+      addEventListenerAudioOriginal.apply(video, ['leavepictureinpicture', leavepictureinpictureVideo]);
+    }
+
+    function observeDOM(obj, callback, config) {
+      const obs = new MutationObserver(function (mutations, observer) {
+        if (config) {
+          callback(mutations, observer);
+        } else if (mutations[0].addedNodes.length || mutations[0].removedNodes.length) {
+          callback(mutations, observer);
+        }
+      });
+      obs.observe(obj, config || {
+        childList: true,
+        subtree: true
+      });
     }
 
     function injectVideo() {
@@ -517,6 +637,9 @@
         addEventListeners(video);
       });
     }
+
+    injectVideo();
+    observeDOM(document, () => injectVideo());
   }
 
   function syncData(keyStorage) {
@@ -832,7 +955,7 @@
           e.preventDefault();
           e.stopPropagation();
         },
-        click: function (event) {
+        click: async function (event) {
           event.preventDefault();
           chrome.tabs.sendMessage(itemInfo.tabId, {
             type: messageType,
@@ -1149,17 +1272,38 @@
   }
 
   function updateButtonToolbar() {
+    if (lucidModeVideo) {
+      buttons.lucidModeVideo.pressed = true;
+      if (buttons.lucidModeVideo.buttonEl) {
+        buttons.lucidModeVideo.buttonEl.classList.add('button-pressed');
+      }
+    } else {
+      buttons.lucidModeVideo.pressed = false;
+      if (buttons.lucidModeVideo.buttonEl) {
+        buttons.lucidModeVideo.buttonEl.classList.remove('button-pressed');
+      }
+    }
+
+    if (buttons.lucidModeVideo.disabled) {
+      buttons.lucidModeVideo.disabled = false;
+      if (buttons.lucidModeVideo.buttonEl) {
+        buttons.lucidModeVideo.buttonEl.disabled = false;
+      }
+    }
+
     if (Object.keys(tabs).length === 0) {
       if (buttons.volume.iconEL && buttons.volume.muted) {
         buttons.volume.iconEL.innerHTML = icons.volume.high;
       }
       if (buttons.volume.buttonEl && !buttons.volume.buttonEl.disabled) {
+        buttons.volume.disabled = true;
         buttons.volume.buttonEl.disabled = true;
       }
       buttons.volume.muted = false;
       buttons.volume.icon = icons.volume.high;
 
       if (buttons.pause.buttonEl && !buttons.pause.buttonEl.disabled) {
+        buttons.pause.disabled = true;
         buttons.pause.buttonEl.disabled = true;
       }
     } else {
@@ -1183,12 +1327,14 @@
         buttons.volume.iconEL.innerHTML = iconMute;
       }
       if (buttons.volume.buttonEl && buttons.volume.buttonEl.disabled) {
+        buttons.volume.disabled = false;
         buttons.volume.buttonEl.disabled = false;
       }
       buttons.volume.icon = iconMute;
       buttons.volume.muted = muted;
 
       if (buttons.pause.buttonEl && buttons.pause.buttonEl.disabled !== pauseDisabled) {
+        buttons.pause.disabled = pauseDisabled;
         buttons.pause.buttonEl.disabled = pauseDisabled;
       }
     }
@@ -1250,8 +1396,8 @@
         });
         const buttonEl = gnoh.createElement('button', {
           tabindex: '-1',
-          class: 'ToolbarButton-Button',
-          disabled: true,
+          class: ('ToolbarButton-Button' + (buttons[key].pressed ? ' button-pressed' : '')),
+          disabled: buttons[key].disabled,
           events: {
             click: buttons[key].click
           }
@@ -1309,7 +1455,7 @@
     '.global-media-controls-content .item.dragover-top::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; box-shadow: 0 2px var(--colorHighlightBg) inset, 0 -2px var(--colorHighlightBg); pointer-events: none; z-index: 2; }',
     '.global-media-controls-content .item.dragover-bottom::before { content: ""; position: absolute; top: 0; left: 0; right: 0; bottom: 0; box-shadow: 0 -2px var(--colorHighlightBg) inset, 0 2px var(--colorHighlightBg); pointer-events: none; z-index: 2; }',
     'button[name="' + webpanelId + '"] > img { display:none; }',
-    'button[name="' + webpanelId + '"]:before { width: 16px; height: 16px; content: ""; background-color: var(--colorFg); mask: url(' + icons.base64.playlistMusic + '); -webkit-mask-box-image: url(' + icons.base64.playlistMusic + '); }',
+    'button[name="' + webpanelId + '"]:before { width: 16px; height: 16px; content: ""; background-color: var(--colorFg); -webkit-mask-box-image: url(' + JSON.stringify(icons.dataURLs.playlistMusic) + '); }',
     '.color-behind-tabs-off .toolbar-mainbar button[name="' + webpanelId + '"]:before { background-color: var(--colorAccentFg); }',
     '#switch > * > .button-toolbar.active:not(:focus) button[name="' + webpanelId + '"]:before { background-color: var(--colorHighlightBg); }'
   ], nameAttribute);
@@ -1351,7 +1497,7 @@
       if (!element) {
         element = {
           activeUrl: code,
-          faviconUrl: icons.base64.playlistMusic,
+          faviconUrl: icons.dataURLs.playlistMusic,
           faviconUrlValid: true,
           id: webpanelId,
           mobileMode: true,
@@ -1461,6 +1607,14 @@
                     tabId: tab.id,
                     frameIds: [detail.frameId]
                   },
+                  func: injectMain,
+                  world: 'MAIN',
+                });
+                chrome.scripting.executeScript({
+                  target: {
+                    tabId: tab.id,
+                    frameIds: [detail.frameId]
+                  },
                   func: inject
                 });
               });
@@ -1475,11 +1629,74 @@
             tabId: details.tabId,
             frameIds: [details.frameId]
           },
+          func: injectMain,
+          world: 'MAIN',
+        });
+        chrome.scripting.executeScript({
+          target: {
+            tabId: details.tabId,
+            frameIds: [details.frameId]
+          },
           func: inject
         });
       });
     }, function () {
       return window.vivaldiWindowId != null;
+    });
+
+    function injectToggleLucidModeVideo(enable) {
+      let style = document.querySelector('style[lucid-mode-video]');
+      if (style && !enable) {
+        style.remove();
+      } else if (!style && enable) {
+        style = document.createElement('style');
+        style.setAttribute('lucid-mode-video', '');
+        style.innerHTML = 'video { filter: url(\'data:image/svg+xml,\ <svg xmlns="http://www.w3.org/2000/svg">\ <filter id="sharpen">\ <feConvolveMatrix order="3" preserveAlpha="true" kernelMatrix="1 -1 1 -1 -1 -1 1 -1 1"/>\ </filter>\ </svg>#sharpen\'); }';
+        document.head.append(style);
+      }
+    }
+
+    function toggleLucidModeVideo() {
+      updateButtonToolbar();
+
+      chrome.tabs.query({ windowType: 'normal' }, function (tabs) {
+        tabs.forEach(function (tab) {
+          chrome.scripting.executeScript({
+            target: {
+              tabId: tab.id,
+              allFrames: true
+            },
+            func: injectToggleLucidModeVideo,
+            args: [lucidModeVideo]
+          });
+        });
+      });
+    }
+
+    chrome.storage.local.get({
+      LUCID_MODE_VIDEO: false
+    }, function (result) {
+      lucidModeVideo = result.LUCID_MODE_VIDEO;
+      toggleLucidModeVideo();
+
+      chrome.webNavigation.onCommitted.addListener(function (details) {
+        chrome.scripting.executeScript({
+          target: {
+            tabId: details.tabId,
+            frameIds: [details.frameId]
+          },
+          func: injectToggleLucidModeVideo,
+          args: [lucidModeVideo]
+        });
+      });
+    });
+
+    chrome.storage.local.onChanged.addListener(function (changes, namespace) {
+      if (changes.LUCID_MODE_VIDEO) {
+        lucidModeVideo = changes.LUCID_MODE_VIDEO.newValue;
+
+        toggleLucidModeVideo();
+      }
     });
   }
 
