@@ -1,0 +1,82 @@
+/* For tab-tile */
+#webview-container:has(#webpage-stack .mosaic.visible){
+    box-shadow: none;
+    padding: 0;
+}
+
+/* Address bar icons */
+/* Loading progress */
+.pageload-ticker{
+  display: none;
+}
+/* Warnning in short address-bar */
+.UrlBar-UrlObfuscationWarning{
+  display: none !important ;
+}
+/* Dont safe because http domain */
+.siteinfo-text{
+  display: none;
+}
+/* Drop down menu of address-bar */
+.drop-down-menu{
+  display: none;
+}
+/* reader-mode button, bookmark button ... */
+.toolbar-small>.button-toolbar{
+  display: none;
+}
+
+.CalendarEventBubble {
+  grid-row: 3/3;
+  grid-column: 1/2;
+}
+
+.window-minimize{
+  display: none;
+}
+.window-maximize{
+  display: none;
+}
+.window-close{
+  display: none;
+}
+.vivaldi{
+  display: none;
+}
+
+:root:has(#browser:is(.transparent-tabbar)) .tabbar-wrapper > .tabbar-wrapper,
+:root:has(#browser:is(.transparent-tabbar)) .toolbar-mainbar, 
+:root:has(#browser:is(.transparent-tabbar)) #titlebar{
+  background: var(--colorBgAlphaBlur) !important;
+}
+:root:has(#browser:is(.transparent-tabbar)) .button-toolbar,
+:root:has(#browser:is(.transparent-tabbar)) .button-toolbar svg{
+  color: var(--colorFg) !important;
+  font-weight: bold;
+}
+
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .tiled.visible)){
+  padding: 6px 2px !important;
+  box-shadow: inset 0 0 0 0px !important;
+  background: var(--colorBgAlphaBlur) !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui)) #panels-container{
+  border: none !important;
+}
+
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui)) .tab-position{
+  padding: 0px 2px !important;
+}
+.toolbar-mainbar{
+  border: none !important;
+}
+.sync-and-trash-container{
+  margin: 0 !important;
+}
+
+.webpageview.visible{
+  box-shadow: none !important;
+  border-radius: 0% !important;
+  margin: 0 !important;
+  /* padding: 4px !important; */
+}
