@@ -1,9 +1,11 @@
 /*
-  Vivaldi VH
+  Vivaldi VH VivalArc Edition
   Version: 1.4
   Target Vivaldi Browser versions: 6.5
 
   Vivaldi VH is a CSS modification for Vivaldi Browser that grants your webpages the entire vertical space of the browser window by moving the rest of the UI into a separate column.
+
+  This edition of Vivaldi VH is designed to be used in combination with the VivalArc CSS modification by tovi: https://arc.tovi.fun
 
   Copyright (c) 2023-2024 HKayn <https://hkayn.com>
 */
@@ -36,39 +38,6 @@
     max(100% - var(--vvh-extend-on-focus-width), 100% - 100vw) +
       calc(9px + var(--vvh-input-field-extend-on-focus-margin-offset))
   ) !important;
-}
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.native {
-  border-top: 1px solid var(--colorBorder);
-}
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser #main .toolbar-mainbar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser #main .bookmark-bar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser footer:has(.toolbar-statusbar) {
-  border: none;
-}
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-left #titlebar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-left #main .toolbar-mainbar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-left #main .bookmark-bar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-left footer:has(.toolbar-statusbar), :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-off:has(#panels-container.left) #titlebar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-off:has(#panels-container.left) #main .toolbar-mainbar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-off:has(#panels-container.left) #main .bookmark-bar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-off:has(#panels-container.left) footer:has(.toolbar-statusbar) {
-  border-right: 1px solid var(--colorBorder);
-}
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-right #titlebar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-right #main .toolbar-mainbar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-right #main .bookmark-bar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-right footer:has(.toolbar-statusbar), :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-off:has(#panels-container.right) #titlebar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-off:has(#panels-container.right) #main .toolbar-mainbar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-off:has(#panels-container.right) #main .bookmark-bar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.tabs-off:has(#panels-container.right) footer:has(.toolbar-statusbar) {
-  border-left: 1px solid var(--colorBorder);
-}
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.bookmark-bar-top:not(.address-top) #titlebar, :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.address-top #main .toolbar-mainbar, :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.bookmark-bar-top #main .bookmark-bar {
-  border-bottom: 1px solid var(--colorBorder);
-}
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.address-bottom #main .toolbar-mainbar, :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.bookmark-bar-bottom #main .bookmark-bar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser footer:has(.toolbar-statusbar) {
-  border-top: 1px solid var(--colorBorder);
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser {
   display: grid;
@@ -291,13 +260,13 @@
   background-color: var(--colorAccentBg);
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.disable-titlebar {
-  
+  /*
   // Commented out to work around visual artifacts with backdrop-filter
 
   .mainbar::before {
     backdrop-filter: var(--backgroundBlur);
   }
- 
+  */
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.disable-titlebar:has(#main .toolbar-mainbar .vivaldi .vivaldi-v) {
   --vvh-address-bar-menu-button-width: 44px;
@@ -757,35 +726,6 @@ button[title=vvh-disable-statusbar-universal-flex-grow]) {
   border-radius: var(--radius);
 }
 
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .tiled.visible)) {
-  padding: 2px;
-  box-shadow: inset 0 0 0 8px var(--colorBgDarker);
-}
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .tiled.visible)) .webpageview.visible {
-  margin: 4px;
-  border-radius: var(--radiusCap);
-  box-shadow: 0 0 0 2px var(--colorBorder);
-}
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .tiled.visible)) .webpageview.visible > .row-wrapper {
-  border-radius: var(--radiusCap);
-}
-#browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(button[title=vvh-enable-webpage-permanent-padding],
-button[title=vvh-disable-webpage-permanent-padding]) {
-  display: none;
-}
-
-#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-webpage-permanent-padding], button[title=vvh-disable-webpage-permanent-padding]) {
-  opacity: 0.5;
-}
-#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-webpage-permanent-padding], button[title=vvh-disable-webpage-permanent-padding]) > button::before {
-  content: " ";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  border: 1px dashed;
-  border-radius: var(--radius);
-}
-
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #browser.tabs-left:not(.address-top-off, .address-bottom-off) #main .toolbar-mainbar .UrlBar-AddressField:has(#urlFieldInput:focus),
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #browser.tabs-left footer:has(.toolbar-statusbar) .UrlBar-AddressField:has(#urlFieldInput:focus), :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #browser.tabs-off:has(#panels-container.left):not(.address-top-off, .address-bottom-off) #main .toolbar-mainbar .UrlBar-AddressField:has(#urlFieldInput:focus),
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #browser.tabs-off:has(#panels-container.left) footer:has(.toolbar-statusbar) .UrlBar-AddressField:has(#urlFieldInput:focus) {
@@ -810,6 +750,10 @@ button[title=vvh-disable-webpage-permanent-padding]) {
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) .UrlBar-AddressField:has(#urlFieldInput:focus) {
   flex-basis: 100vw !important;
   box-shadow: 0 0 16px 1px var(--colorBorder);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #browser:not(.address-top-off, .address-bottom-off) #main .toolbar-mainbar .UrlBar-AddressField:has(#urlFieldInput:focus),
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-addressfield-extend-on-focus])) #browser footer:has(.toolbar-statusbar) .UrlBar-AddressField:has(#urlFieldInput:focus) {
+  background-color: var(--colorBgIntense);
 }
 #browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(button[title=vvh-enable-addressfield-extend-on-focus],
 button[title=vvh-disable-addressfield-extend-on-focus]) {
@@ -852,6 +796,10 @@ button[title=vvh-disable-addressfield-extend-on-focus]) {
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) .UrlBar-SearchField:has(.searchfield-input:focus) {
   flex-basis: 100vw !important;
   box-shadow: 0 0 16px 1px var(--colorBorder);
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) #browser:not(.address-top-off, .address-bottom-off) #main .toolbar-mainbar .UrlBar-SearchField:has(.searchfield-input:focus),
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-searchfield-extend-on-focus]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-searchfield-extend-on-focus])) #browser footer:has(.toolbar-statusbar) .UrlBar-SearchField:has(.searchfield-input:focus) {
+  background-color: var(--colorBgIntense);
 }
 #browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(button[title=vvh-enable-searchfield-extend-on-focus],
 button[title=vvh-disable-searchfield-extend-on-focus]) {
@@ -953,41 +901,43 @@ button[title=vvh-disable-panel-in-pillar]) {
   border-radius: var(--radius);
 }
 
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-titlebar-full-width]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-titlebar-full-width])) #browser:not(.disable-titlebar) #titlebar {
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser:not(.disable-titlebar) #titlebar {
   border-left: none;
   border-right: none;
 }
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-titlebar-full-width]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-titlebar-full-width])) #browser:not(.disable-titlebar):is(.tabs-left, .tabs-right) #panels-container,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-titlebar-full-width]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-titlebar-full-width])) #browser:not(.disable-titlebar) #webview-container {
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser:not(.disable-titlebar):is(.tabs-left, .tabs-right) #panels-container,
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser:not(.disable-titlebar) #webview-container {
   border-top: 1px solid var(--colorBorder);
 }
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-titlebar-full-width]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-titlebar-full-width])) #browser:not(.disable-titlebar):is(.tabs-left, .tabs-right) #panels-container {
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser:not(.disable-titlebar):is(.tabs-left, .tabs-right) #panels-container {
   grid-row-start: 2;
 }
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-titlebar-full-width]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-titlebar-full-width])) #browser:not(.disable-titlebar) #webview-container {
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser:not(.disable-titlebar) #webview-container {
   grid-row-start: 2;
 }
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-titlebar-full-width]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-titlebar-full-width])) #browser:not(.disable-titlebar) #titlebar,
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-titlebar-full-width]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-titlebar-full-width])) #browser:not(.disable-titlebar) #header .topmenu {
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser:not(.disable-titlebar) #titlebar,
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser:not(.disable-titlebar) #header .topmenu {
   grid-column: 1/-1 !important;
 }
-:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-enable-titlebar-full-width]) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-titlebar-full-width])) #browser:not(.disable-titlebar) #header .topmenu .horizontal-menu-pagetitle {
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser:not(.disable-titlebar) #header .topmenu .horizontal-menu-pagetitle {
   width: unset;
   flex: unset;
 }
-#browser:not(.toolbar-edit-mode) .button-toolbar.toolbar-command:has(button[title=vvh-enable-titlebar-full-width],
-button[title=vvh-disable-titlebar-full-width]) {
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #titlebar,
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #main .toolbar-mainbar {
+  background: var(--colorTabBar) !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #panels-container,
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #webview-container {
+  border-top: unset !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #titlebar {
+  min-height: var(--window-header) !important;
+}
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #main .toolbar-mainbar::after {
   display: none;
 }
-
-#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-titlebar-full-width], button[title=vvh-disable-titlebar-full-width]) {
-  opacity: 0.5;
-}
-#browser.toolbar-edit-mode .button-toolbar.toolbar-command:has(button[title=vvh-enable-titlebar-full-width], button[title=vvh-disable-titlebar-full-width]) > button::before {
-  content: " ";
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  border: 1px dashed;
-  border-radius: var(--radius);
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.disable-titlebar #panels-container,
+:root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.disable-titlebar #webview-container {
+  margin-top: var(--window-header) !important;
 }

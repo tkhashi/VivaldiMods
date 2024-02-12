@@ -44,11 +44,13 @@
   display: none;
 }
 
-/* background transparent&floating webview-container */
+
+/* background transparent & floating webview-container */
 :root:has(#browser:is(.transparent-tabbar)) .tabbar-wrapper > .tabbar-wrapper,
 :root:has(#browser:is(.transparent-tabbar)) .toolbar-mainbar, 
 :root:has(#browser:is(.transparent-tabbar)) #titlebar{
   /* "colorBgAlphaBlur" is panel opancitized color */
+  border: none !important;
   background: var(--colorBgAlphaBlur) !important;
 }
 :root:has(#browser:is(.transparent-tabbar)) .button-toolbar,
@@ -58,7 +60,7 @@
 }
 
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .tiled.visible)){
-  padding: 8px 4px !important;
+  padding: 8px 4px 8px 4px !important;
   box-shadow: inset 0 0 0 0px !important;
   background: var(--colorBgAlphaBlur) !important;
 }
@@ -70,12 +72,9 @@
   padding: 0px 2px !important;
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui)) .workspace-popup > .ToolbarButton-Button {
-  padding-left: 3px;
+  padding-left: 3px !important;
 }
 
-.toolbar-mainbar{
-  border: none !important;
-}
 .sync-and-trash-container{
   margin: 0 !important;
 }
@@ -83,4 +82,9 @@
   box-shadow: none !important;
   border-radius: 0% !important;
   margin: 0 !important;
+}
+
+/* mail view */
+.toolbar-mailbar > .SearchField{
+  width: 10px !important;
 }

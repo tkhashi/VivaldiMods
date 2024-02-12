@@ -1,0 +1,17 @@
+// Get setting
+vivaldi.prefs.get('vivaldi.actions', e => console.log(JSON.stringify(e)));
+// Set setting
+vivaldi.prefs.set({path:'vivaldi.actions', value:[ ... ]});
+
+// instead of vivaldi.actions (these don't require restarts).
+vivaldi.toolbars.navigation
+vivaldi.toolbars.panel
+vivaldi.toolbars.status
+vivaldi.toolbars.mail
+vivaldi.toolbars.mail_composer
+vivaldi.toolbars.mail_message 
+vivaldi.panels.web.elements
+vivaldi.panels.web.removed_elements.
+vivaldi.workspaces.list
+vivaldi.workspaces.link_routes
+vivaldi.chained_commands.command_list
