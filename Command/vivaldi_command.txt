@@ -15,3 +15,30 @@ vivaldi.panels.web.removed_elements.
 vivaldi.workspaces.list
 vivaldi.workspaces.link_routes
 vivaldi.chained_commands.command_list
+
+// output calendar tempalte & register script
+```js
+let templates;
+let registeredScript
+vivaldi.calendar.getAllEventTemplates().then(e=>{
+    templates = JSON.stringify(e, null, "\t")
+    registeredScript = `
+const templates = ${templates}
+
+function registerTemplates(templates) {
+    templates.forEach(template => {
+        vivaldi.calendar.createEventTemplate(template.name, template.ical, (result) => {
+            if (result) {
+                console.log('template.name' + " is registered.");
+            } else {
+                console.log(template.name" +  fail to register.");
+            }
+        });
+    });
+}
+
+registerTemplates(templates);`
+
+console.log(registeredScript)
+});
+```

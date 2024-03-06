@@ -292,11 +292,11 @@
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.disable-titlebar {
   
-  // Commented out to work around visual artifacts with backdrop-filter
+  /* // Commented out to work around visual artifacts with backdrop-filter
 
   .mainbar::before {
     backdrop-filter: var(--backgroundBlur);
-  }
+  } */
  
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) #browser.disable-titlebar:has(#main .toolbar-mainbar .vivaldi .vivaldi-v) {
