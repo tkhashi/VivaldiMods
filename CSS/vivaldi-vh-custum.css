@@ -52,10 +52,13 @@
   /* "colorBgAlphaBlur" is panel opancitized color */
   border: none !important;
   background: transparent !important;
+  backdrop-filter: var(--backgroundBlur) !important;
 }
 
+/* panels-container */
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #panels-container:not(:has(#webpage-stack .tiled.visible)){
   background: transparent !important;
+  backdrop-filter: var(--backgroundBlur) !important;
 }
 
 :root:has(#browser:is(.transparent-tabbar)) .button-toolbar,
@@ -63,10 +66,10 @@
   color: var(--colorFg) !important;
 }
 
+/* webview-container */
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui) #panels-container) > :not(:has(:is(#main .toolbar-mainbar, #panels-container, footer .toolbar-statusbar) button[title=vvh-disable-webpage-permanent-padding])) #webview-container:not(:has(#webpage-stack .tiled.visible)){
   padding: 8px 4px 8px 4px !important;
   box-shadow: inset 0 0 0 0px !important;
-  /* background: var(--colorBgAlphaBlur) !important; */
   background: transparent !important;
 }
 :root:has(#browser:is(.tabs-left, .tabs-right):not(.fullscreen, .minimal-ui), #browser.tabs-off:not(.fullscreen, .minimal-ui)) #panels-container{
@@ -92,4 +95,12 @@
 /* mail view */
 .toolbar-mailbar > .SearchField{
   width: 10px !important;
+}
+
+.button-popup{
+  z-index: 10 !important;
+}
+
+.MailSearchField-Inner{
+  min-width: 0px;
 }
