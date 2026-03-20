@@ -6,7 +6,7 @@ vivaldi version: v7.9.3970.39 (Stable channel)
 
 :root {
   /* 全体の拡大率（これだけ触ればUI全体がスケールする） */
-  --tabswitcher-scale: 1.5;
+  --tabswitcher-scale: 1.3;
 
   /* ===== レイアウト余白 ===== */
 
@@ -45,10 +45,10 @@ vivaldi version: v7.9.3970.39 (Stable channel)
   --tabswitcher-row-gap: calc(0.6em * var(--tabswitcher-scale));
 
   /* 各行の最小高さ（クリックしやすさに影響） */
-  --tabswitcher-row-min-height: calc(2.2em);
+  --tabswitcher-row-min-height: calc(2.2em * var(--tabswitcher-scale));
 
   /* 各行の上下パディング（行の密度に影響） */
-  --tabswitcher-row-padding-y: calc(0.45em);
+  --tabswitcher-row-padding-y: calc(0.45em * var(--tabswitcher-scale));
 
   /* 各行の左右パディング（左右の余白） */
   --tabswitcher-row-padding-x: calc(0.7em * var(--tabswitcher-scale));
