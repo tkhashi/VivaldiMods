@@ -1,0 +1,496 @@
+/* Adjust Configure In :root */
+:root {
+  /* Tabbar's width when they expand or collapse */
+  --tabs-container-collapse-width: 7px; /* min width of main tabbar should not set lower than 6px, which will cause weird issue. */
+  --tabs-container-expand-width: 300px;
+  --tabs-subcontainer-collapse-width: 42px;
+  --tabs-subcontainer-expand-width: 335px;
+
+  /* Adjust tabbar margin and padding */
+  --tabbar-margin-top: 0px;
+  --tabbar-margin-bottom: 0px;
+  --tabbar-padding: 0px; /* Set to 0 if any tabs position problem */
+
+  /* Adjust tabbars' border radius when they expand or collapse */
+  --tabbar-border-radius-expand: 0px;
+  --tabbar-border-radius-collapse: 0px;
+  /* Set to zero if you don't want round corner when tabbar collapsed */
+
+  /* Animation speed when tabbars expand or collapse */
+  --animation-speed: 280ms;
+  --slow-animation-speed: 600ms;
+  --transition-delay-time-expand: 0ms;
+  --transition-delay-time-collapse: 0ms;
+
+  /* Adjust tabbars' color when they expand or collapse */
+
+  /* Light Theme */
+  /* ============================================ */
+  --tabbar-bg-color-collapse: rgb(164, 164, 164);
+  --tabbar-bg-color-expand: rgba(241,241,243,1.00);
+  --tabbar-border-color-collapse: rgba(223, 249, 253, 1);
+  --tabbar-border-color-expand: rgba(0, 251, 255, 1);
+  /* ============================================ */
+
+  /* Dark Theme */
+  /* ============================================ */
+  /* --tabbar-bg-color-collapse: rgba(42,42,49,1);
+  --tabbar-bg-color-expand: rgb(0, 0, 0);
+  --tabbar-border-color-collapse: rgb(2, 33, 65);
+  --tabbar-border-color-expand: rgb(36, 107, 240); */
+  /* ============================================ */
+
+  /* My Theme(Green) */
+  /* ============================================ */
+  /* --tabbar-bg-color-collapse: rgba(25, 30, 25, 1);
+  --tabbar-bg-color-expand: rgba(11, 41, 17, 1);
+  --tabbar-border-color-collapse: rgba(0, 73, 45, 1);
+  --tabbar-border-color-expand: rgba(1, 131, 133, 1);
+  --tabbar-margin-top: -5px;
+  --tabbar-margin-bottom: 0px;
+  --tabbar-padding: 7px; 
+  --tabbar-border-radius-expand: 17px;
+  --tabbar-border-radius-collapse: 3px;*/
+  /* ============================================ */
+
+  /* Debug */
+  /* --tabs-container-bg-color: red;
+  --tabs-subcontainer-bg-color: green; */
+}
+
+/* ========================================
+   AUTO-HIDE TABBAR
+   ======================================== */
+
+/* Main Tabbar*/
+
+/* Adjust hide animation and width of main tabbar here */
+/* I set its width very small since I think this has more of a "hidden" vibe,
+and I figure people may want to focus more on sub-stack when they're working on a certain subject
+with a tab-stack. Which is why we need tab-stack no? */
+#tabs-container {
+  min-width: var(--tabs-container-collapse-width) !important;
+  max-width: var(--tabs-container-collapse-width) !important;
+  margin-top: var(--tabbar-margin-top) !important;
+  margin-bottom: var(--tabbar-margin-bottom) !important;
+  background-color: var(--tabbar-bg-color-collapse) !important;
+  border-radius: var(--tabbar-border-radius-collapse) !important;
+  border: 1px dotted var(--tabbar-border-color-collapse) !important;
+  /* will-change: transform !important; */
+  transition:
+    /* transform var(--smooth-animation-speed) ease-out, */
+    border-radius var(--animation-speed) ease-out,
+    border var(--animation-speed) ease-out,
+    background-color var(--animation-speed) ease-out,
+    min-width var(--animation-speed) ease-out,
+    max-width var(--animation-speed) ease-out !important;
+  transition-delay: var(--transition-delay-time-collapse) !important;
+  /* transition-delay: var(--transition-delay-time-expand) !important; */
+  box-sizing: border-box !important;
+  position: relative !important;
+}
+
+/* When the tabs-subcontainer is hovered, the tabs-container immediately collapses. */
+#tabs-tabbar-container:has(#tabs-subcontainer:hover) #tabs-container {
+  transition-delay: var(--transition-delay-time-expand) !important;
+}
+
+/* Adjust expand width of main tabbar here */
+#tabs-container:hover {
+  min-width: var(--tabs-container-expand-width) !important;
+  max-width: var(--tabs-container-expand-width) !important;
+  background-color: var(--tabbar-bg-color-expand) !important;
+  transition:
+    /* transform var(--smooth-animation-speed) ease-out, */
+    border-radius var(--animation-speed) ease-out,
+    border var(--animation-speed) ease-out,
+    background-color var(--animation-speed) ease-out,
+    min-width var(--animation-speed) ease-out,
+    max-width var(--animation-speed) ease-out !important;
+  transition-delay: var(--transition-delay-time-collapse) !important;
+  margin-top: var(--tabbar-margin-top) !important;
+  margin-bottom: var(--tabbar-margin-bottom) !important;
+  box-sizing: border-box !important;
+  /* transition-delay: 60ms !important; */
+}
+
+#tabs-tabbar-container:not(:has(#tabs-subcontainer)) #tabs-container.left:hover{
+  border-radius: 0px var(--tabbar-border-radius-expand) var(--tabbar-border-radius-expand) 0px !important;
+}
+
+#tabs-tabbar-container:not(:has(#tabs-subcontainer)) #tabs-container.right:hover {
+  border-radius: var(--tabbar-border-radius-expand) 0px 0px var(--tabbar-border-radius-expand) !important;
+}
+
+/* SubStack / Secondary Tabbar */
+
+#tabs-subcontainer {
+  min-width: var(--tabs-subcontainer-collapse-width) !important;
+  max-width: var(--tabs-subcontainer-collapse-width) !important;
+  margin-top: var(--tabbar-margin-top) !important;
+  margin-bottom: var(--tabbar-margin-bottom) !important;
+  padding-top: var(--tabbar-padding) !important;
+  background-color: var(--tabbar-bg-color-collapse) !important;
+  border-radius: var(--tabbar-border-radius-collapse) !important;
+  border: 1px dotted var(--tabbar-border-color-collapse) !important;
+  transition:
+    min-width var(--animation-speed) ease-out,
+    max-width var(--animation-speed) ease-out,
+    background-color var(--animation-speed) ease-out,
+    border-radius var(--animation-speed) ease-out,
+    border var(--animation-speed) ease-out,
+    transform var(--animation-speed) ease-out !important;
+  transition-delay: var(--transition-delay-time-collapse) !important;
+  /* transition-delay: var(--transition-delay-time-expand) !important; */
+  box-sizing: border-box !important;
+  position: relative !important;
+  will-change: transform !important;
+}
+
+/* #tabs-subcontainer:hover {
+  transition-delay: var(--transition-delay-time-expand) !important;
+} */
+
+/* #tabs-tabbar-container:has(#tabs-container:hover) #tabs-subcontainer {
+  transition-delay: var(--transition-delay-time-expand) !important;
+} */
+
+#tabs-tabbar-container:has(#tabs-container:hover) #tabs-subcontainer.right{
+  border-radius: var(--tabbar-border-radius-expand) 0px 0px var(--tabbar-border-radius-expand) !important;
+}
+
+#tabs-tabbar-container:has(#tabs-container:hover) #tabs-subcontainer.left{
+  border-radius: 0px var(--tabbar-border-radius-expand) var(--tabbar-border-radius-expand) 0px !important;
+}
+
+/* Enhanced conditions for keeping tabbar expanded */
+/* When StackEditor modal is present or AddressField is focused */
+body:has(.button-popup) #tabs-container,
+body:has(.toolbar-editor) #tabs-container,
+body:has(.UrlBar-AddressField:focus-within) #tabs-container {
+  min-width: var(--tabs-container-expand-width) !important;
+  max-width: var(--tabs-container-expand-width) !important;
+  background-color: var(--tabbar-bg-color-expand) !important;
+  transition:
+    /* transform var(--smooth-animation-speed) ease-out, */
+    border-radius var(--animation-speed) ease-out,
+    border var(--animation-speed) ease-out,
+    background-color var(--animation-speed) ease-out,
+    min-width var(--animation-speed) ease-out,
+    max-width var(--animation-speed) ease-out !important;
+  transition-delay: var(--transition-delay-time-expand) !important;
+  margin-top: var(--tabbar-margin-top) !important;
+  margin-bottom: var(--tabbar-margin-bottom) !important;
+  box-sizing: border-box !important;
+}
+
+body:has(.button-popup) #tabs-subcontainer,
+body:has(.toolbar-editor) #tabs-subcontainer,
+body:has(.UrlBar-AddressField:focus-within) #tabs-subcontainer {
+  transition-delay: var(--transition-delay-time-expand) !important;
+}
+
+/* ================================================================================= */
+
+/* Adjust expand width of Secondary tabbar here */
+body:not(:has(.button-popup)):not(:has(.toolbar-editor)):not(:has(.UrlBar-AddressField:focus-within))
+  #tabs-subcontainer:hover {
+/* #tabs-subcontainer:hover { */
+  min-width: var(--tabs-subcontainer-expand-width) !important;
+  max-width: var(--tabs-subcontainer-expand-width) !important;
+  background-color: var(--tabbar-bg-color-expand) !important;
+  transition:
+    border-radius var(--animation-speed) ease-out,
+    border var(--animation-speed) ease-out,
+    min-width var(--animation-speed) ease-out,
+    max-width var(--animation-speed) ease-out,
+    background-color var(--animation-speed) ease-out,
+    transform var(--animation-speed) ease-out !important;
+  transition-delay: 0ms !important;
+  margin-top: var(--tabbar-margin-top) !important;
+  margin-bottom: var(--tabbar-margin-bottom) !important;
+  padding-top: var(--tabbar-padding) !important;
+  box-sizing: border-box !important;
+}
+
+#tabs-subcontainer.left:hover{
+  border-radius: 0px var(--tabbar-border-radius-expand) var(--tabbar-border-radius-expand) 0px !important;
+}
+#tabs-subcontainer.right:hover {
+  border-radius: var(--tabbar-border-radius-expand) 0px 0px var(--tabbar-border-radius-expand) !important;
+}
+
+body:has(.button-popup) #tabs-subcontainer.left:not(:hover),
+body:has(.toolbar-editor) #tabs-subcontainer.left:not(:hover),
+body:has(.UrlBar-AddressField:focus-within) #tabs-subcontainer.left:not(:hover){
+  border-radius: 0 var(--tabbar-border-radius-expand) var(--tabbar-border-radius-expand) 0 !important;
+}
+
+body:has(.button-popup) #tabs-subcontainer.right:not(:hover),
+body:has(.toolbar-editor) #tabs-subcontainer.right:not(:hover),
+body:has(.UrlBar-AddressField:focus-within) #tabs-subcontainer.right:not(:hover) {
+  border-radius: var(--tabbar-border-radius-expand) 0 0 var(--tabbar-border-radius-expand) !important;
+}
+
+/* Fix container bouncing: Add smooth transition to overall container */
+#tabs-tabbar-container {
+  width: auto !important;
+  min-width: var(
+    --tabs-container-collapse-width
+  ) !important; /* main stack width when it fold */
+  max-width: calc(
+    var(--tabs-container-expand-width)+var(--tabs-subcontainer-collapse-width)
+  ) !important; /* Combine total of expand width of stack and substack when one of them is hovered */
+  /* padding: var(--tabbar-padding) var(--tabbar-padding) var(--tabbar-padding) 0 !important; */
+  background-color: transparent !important;
+  background-image: none !important;
+  border: none !important;
+  border-radius: var(--tabbar-border-radius-expand);
+  /*border-color: black !important;
+  border-width: 1px !important;*/
+  box-shadow: none !important;
+  box-sizing: border-box !important;
+  transition:
+    width var(--animation-speed) ease-out,
+    min-width var(--animation-speed) ease-out,
+    max-width var(--animation-speed) ease-out !important;
+  position: relative !important;
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: stretch !important;
+  /* width: calc(var(--tabs-container-collapse-width) + var(--tabs-subcontainer-collapse-width)) !important; */
+}
+
+/* When the tabs-container is hovered, the container width increases. */
+/* #tabs-tabbar-container:has(#tabs-container:hover) {
+  width: calc(var(--tabs-container-expand-width) + var(--tabs-subcontainer-collapse-width)) !important;
+  transition-delay: var(--transition-delay-time-expand) !important;
+}
+
+#tabs-tabbar-container:has(#tabs-subcontainer:hover) {
+  width: calc(var(--tabs-container-collapse-width) + var(--tabs-subcontainer-expand-width)) !important;
+  transition-delay: var(--transition-delay-time-expand) !important;
+}
+
+#tabs-tabbar-container:not(:has(#tabs-subcontainer)) {
+  width: var(--tabs-container-collapse-width) !important;
+}
+
+#tabs-tabbar-container:not(:has(#tabs-subcontainer)):has(#tabs-container:hover) {
+  width: var(--tabs-container-expand-width) !important;
+} */
+
+/* #tabs-tabbar-container:has(#tabs-container:hover) #tabs-subcontainer,
+#tabs-tabbar-container:has(#tabs-subcontainer:hover) #tabs-container{
+  pointer-events:none !important;
+} */
+
+/* Border Color */
+#tabs-tabbar-container #tabs-container:hover {
+  border: 1px solid var(--tabbar-border-color-expand) !important;
+}
+#tabs-tabbar-container #tabs-subcontainer:hover {
+  border: 1px solid var(--tabbar-border-color-expand) !important;
+}
+/* Correct tab bar order: When right tab bar, main tab bar is on the right; when left tab bar, main tab bar is on the left */
+/* Right tab bar: Sub tab bar on left, main tab bar on right */
+#tabs-tabbar-container.right #tabs-subcontainer.right {
+  order: 1 !important;
+  flex-shrink: 0 !important;
+}
+
+#tabs-tabbar-container.right #tabs-container.right {
+  order: 2 !important;
+  flex-shrink: 0 !important;
+}
+
+/* Left tab bar: Main tab bar on left, sub tab bar on right */
+#tabs-tabbar-container.left #tabs-container.left {
+  order: 1 !important;
+  flex-shrink: 0 !important;
+}
+
+#tabs-tabbar-container.left #tabs-subcontainer.left {
+  order: 2 !important;
+  flex-shrink: 0 !important;
+}
+
+/* Tab bar styling */
+.tabbar-workspace-button {
+  width: 100% !important;
+}
+
+/* Disabled tabbar resize */
+.SlideBar {
+  display: none !important;
+  /*pointer-events: none !important;
+  cursor: default !important;*/
+}
+
+/* Prevent black background behind tabs-container at left */
+.tabbar-wrapper:has(#tabs-container.left) {
+  background-color: transparent !important;
+}
+
+/* #tabs-tabbar-container {
+  display: flex;
+  align-items: center;
+} */
+
+/* I hate newtab button. But if you have the opposite opinion,replace below codes with these
+
+.button-toolbar.newtab{
+  left: 0px !important;
+  width: 150px;
+}
+
+And of course you don't need those lockers icon when your tabbar expand on hover so here's how you hide em.
+
+.button-toolbar.tabs-locked,
+.button-toolbar.tabs-unlocked {
+  display: none !important;
+}
+*/
+.button-toolbar.newtab,
+.button-toolbar.tabs-locked,
+.button-toolbar.tabs-unlocked {
+  display: none !important;
+} /* Codeblock to be replaced of*/
+
+.toolbar.toolbar-tabbar-after.toolbar-large.toolbar-droptarget {
+  margin-bottom: -35px !important;
+}
+
+/* ========================================
+   HIDE ELEMENTS ON HOVER
+   ======================================== */
+
+#tabs-container:not(:hover) > * {
+  min-width: 0 !important;
+  max-width: 0 !important;
+  /* padding: 0 !important; */
+  overflow: hidden !important;
+  opacity: 0 !important;
+  transition:
+    min-width 0s ease-out var(--transition-delay-time-collapse),
+    max-width 0s ease-out var(--transition-delay-time-collapse),
+    opacity var(--slow-animation-speed) ease-out 0s !important;
+  pointer-events: none !important;
+}
+
+#tabs-container:hover > *,
+body:has(.UrlBar-AddressField:focus-within) #tabs-container:not(:hover) > *,
+body:has(.toolbar-editor) #tabs-container:not(:hover) > *,
+body:has(.button-popup) #tabs-container:not(:hover) > * {
+  min-width: var(--tabs-container-expand-width) !important;
+  max-width: var(--tabs-container-expand-width) !important;
+  padding-right: var(--tabbar-padding) !important;
+  overflow: visible !important;
+  opacity: 1 !important;
+  transition:
+    opacity var(--animation-speed) ease-out !important;
+  transition-delay: 0ms !important;
+  pointer-events: auto !important;
+}
+
+#tabs-tabbar-container #tabs-container {
+  overflow: hidden !important;
+  box-sizing: border-box !important;
+}
+
+/* ========================================
+   FLOATING TABBAR
+   ======================================== */
+/* If you want the expanded tabbar floating on the website instead of squeezing it, just add the following css to the css above */
+/* But read the comments before you do */
+
+#main > .inner > div:has(#tabs-tabbar-container) {
+  position: absolute;
+  top: 0;
+  z-index: 2;
+  opacity: 1;
+  background-color: transparent !important;
+  background-image: none !important;
+  height: 100% !important;
+}
+
+#main > .inner > div:has(#tabs-tabbar-container.right) {
+  right: 0;
+}
+
+#main > .inner > div:has(#tabs-tabbar-container.left) {
+  left: 0;
+}
+
+#browser.transparent-tabbar
+  .inner
+  > div:has(#tabs-tabbar-container:is(.left, .right)) {
+  background-color: transparent !important;
+  backdrop-filter: none !important;
+}
+
+/*=================== Webpage stack margins - Auto Calculation ===================*/
+
+/* Auto-detect tabbar position and apply appropriate margins */
+
+/* Right tabbar margins */
+#browser:not(.fullscreen):has(#tabs-tabbar-container.right)
+  .inner
+  #webpage-stack {
+  margin-right: var(--tabs-container-collapse-width);
+  transition: margin-right var(--animation-speed) ease-out !important;
+}
+
+#browser:not(.fullscreen)
+  :has(#tabs-tabbar-container.right)
+  .inner:has(#tabs-subcontainer:is(.left, .right))
+  #webpage-stack {
+  margin-right: calc(
+    var(--tabs-container-collapse-width) +
+      var(--tabs-subcontainer-collapse-width)
+  );
+}
+
+#browser:not(.fullscreen) #tabs-tabbar-container.right ~ #webpage-stack {
+  margin-right: var(--tabs-container-collapse-width);
+}
+
+#browser:not(.fullscreen)
+  #tabs-tabbar-container.right
+  ~ #webpage-stack:has(#tabs-subcontainer.right) {
+  margin-right: calc(
+    var(--tabs-container-collapse-width) +
+      var(--tabs-subcontainer-collapse-width)
+  );
+}
+
+/* Left tabbar margins */
+#browser:not(.fullscreen):has(#tabs-tabbar-container.left)
+  .inner
+  #webpage-stack {
+  margin-left: var(--tabs-container-collapse-width);
+  transition: margin-left var(--animation-speed) ease-out !important;
+}
+
+#browser:not(.fullscreen)
+  :has(#tabs-tabbar-container.left)
+  .inner:has(#tabs-subcontainer:is(.left, .right))
+  #webpage-stack {
+  margin-left: calc(
+    var(--tabs-container-collapse-width) +
+      var(--tabs-subcontainer-collapse-width)
+  );
+}
+
+#browser:not(.fullscreen) #tabs-tabbar-container.left ~ #webpage-stack {
+  margin-left: var(--tabs-container-collapse-width);
+}
+
+#browser:not(.fullscreen)
+  #tabs-tabbar-container.left
+  ~ #webpage-stack:has(#tabs-subcontainer.left) {
+  margin-left: calc(
+    var(--tabs-container-collapse-width) +
+      var(--tabs-subcontainer-collapse-width)
+  );
+}

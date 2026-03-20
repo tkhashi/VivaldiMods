@@ -1,0 +1,8 @@
+/* #panels-container { width:35px; } */
+
+/* Side panel */
+.panel-group { width:calc(80vw - 35px) !important; }
+
+/* Side panel innner */
+.panel-collapse-guard { max-width:none !important; }
+/* EOF 

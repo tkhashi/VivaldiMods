@@ -1,0 +1,133 @@
+/* 
+version: 1.0.0
+update: 2026.03.20
+vivaldi version: v7.9.3970.39 (Stable channel)
+*/
+
+:root {
+  /* 全体の拡大率（これだけ触ればUI全体がスケールする） */
+  --tabswitcher-scale: 1.5;
+
+  /* ===== レイアウト余白 ===== */
+
+  /* モーダル外側の余白（画面端との距離） */
+  --tabswitcher-overlay-padding: calc(2vw * var(--tabswitcher-scale));
+
+  /* モーダル全体の最大サイズ（基本は触らない） */
+  --tabswitcher-modal-max-width: 96vw;
+  --tabswitcher-modal-max-height: 96vh;
+
+  /* ===== プレビュー画像 ===== */
+
+  /* プレビュー画像の最大横幅（左側の大きさを決める） */
+  --tabswitcher-preview-max-width: min(
+    calc(48vw * var(--tabswitcher-scale)),
+    calc(900px * var(--tabswitcher-scale))
+  );
+
+  /* プレビュー画像の最大高さ（縦方向の圧迫を防ぐ） */
+  --tabswitcher-preview-max-height: calc(70vh * var(--tabswitcher-scale));
+
+  /* ===== タブリスト（右側） ===== */
+
+  /* タブリストの最大横幅（右カラムの広さ） */
+  --tabswitcher-list-max-width: min(
+    calc(40vw * var(--tabswitcher-scale)),
+    calc(700px * var(--tabswitcher-scale))
+  );
+
+  /* タブリストの最大高さ（スクロール領域の高さ） */
+  --tabswitcher-list-max-height: calc(70vh * var(--tabswitcher-scale));
+
+  /* ===== 行レイアウト ===== */
+
+  /* 各行の要素間の間隔（アイコンとテキストの距離） */
+  --tabswitcher-row-gap: calc(0.6em * var(--tabswitcher-scale));
+
+  /* 各行の最小高さ（クリックしやすさに影響） */
+  --tabswitcher-row-min-height: calc(2.2em);
+
+  /* 各行の上下パディング（行の密度に影響） */
+  --tabswitcher-row-padding-y: calc(0.45em);
+
+  /* 各行の左右パディング（左右の余白） */
+  --tabswitcher-row-padding-x: calc(0.7em * var(--tabswitcher-scale));
+
+  /* ===== favicon ===== */
+
+  /* アイコンサイズ（小さすぎると視認性低下） */
+  --tabswitcher-favicon-size: calc(1.2em * var(--tabswitcher-scale));
+}
+
+/* オーバーレイ全体を中央寄せ */
+#modal-bg.modal-tabswitcher {
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  padding: var(--tabswitcher-overlay-padding) !important;
+  box-sizing: border-box !important;
+}
+
+/* モーダル本体：固定幅をやめて中身基準にする */
+#modal-bg.modal-tabswitcher .modal-wrapper {
+  position: relative !important;
+  left: auto !important;
+  top: auto !important;
+  margin: 0 !important;
+  width: fit-content !important;
+  max-width: var(--tabswitcher-modal-max-width) !important;
+  max-height: var(--tabswitcher-modal-max-height) !important;
+  overflow: hidden !important;
+  transform: none !important;
+}
+
+/* 中身の横並びを維持しつつ、モーダル内に収める */
+#modal-bg.modal-tabswitcher .tabswitcher.list {
+  display: flex !important;
+  flex-direction: row !important;
+  flex-wrap: nowrap !important;
+  align-items: flex-start !important;
+  width: fit-content !important;
+  max-width: var(--tabswitcher-modal-max-width) !important;
+  max-height: var(--tabswitcher-modal-max-height) !important;
+  box-sizing: border-box !important;
+}
+
+/* プレビュー画像：縦いっぱいを禁止、比率維持 */
+#modal-bg.modal-tabswitcher .visual-list-preview {
+  display: block !important;
+  width: auto !important;
+  height: auto !important;
+  max-width: var(--tabswitcher-preview-max-width) !important;
+  max-height: var(--tabswitcher-preview-max-height) !important;
+  object-fit: contain !important;
+  flex: 0 1 auto !important;
+}
+
+/* タブリスト：画像に応じて自然に並ぶ */
+#modal-bg.modal-tabswitcher .listed-tabs {
+  flex: 0 1 auto !important;
+  width: auto !important;
+  max-width: var(--tabswitcher-list-max-width) !important;
+  max-height: var(--tabswitcher-list-max-height) !important;
+  overflow: auto !important;
+  margin: 0 !important;
+  box-sizing: border-box !important;
+}
+
+/* 各行の見やすさ */
+#modal-bg.modal-tabswitcher .visual-list {
+  display: flex !important;
+  align-items: center !important;
+  gap: var(--tabswitcher-row-gap) !important;
+  min-height: var(--tabswitcher-row-min-height) !important;
+  padding: var(--tabswitcher-row-padding-y) var(--tabswitcher-row-padding-x) !important;
+  box-sizing: border-box !important;
+}
+
+/* favicon */
+#modal-bg.modal-tabswitcher .visual-tab-list-favicon {
+  width: var(--tabswitcher-favicon-size) !important;
+  height: var(--tabswitcher-favicon-size) !important;
+  flex: 0 0 auto !important;
+}
